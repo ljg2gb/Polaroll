@@ -1,32 +1,54 @@
-import React, { Component, useRef, useEffect } from 'react';
-import { StyleSheet, Text, ScrollView, View, Animated, Button } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, ScrollView, View, Button, TouchableHighlight, Image } from 'react-native';
 import FadeInView from './FadeInView'
 import NewCamera from './NewCamera'
+import { Camera } from 'expo-camera';
 
+
+{/* <View style={{flex: 1}}>
+{this.state.photo ? this.displayPicture(this.state.photo) : null}
+</View> */}
 
 
 export default class Home extends Component {
   state = {
-   cameraClicked: false
+    cameraClicked: false,
+    // hasPermission: null,
+    // cameraType: Camera.Constants.Type.back,
+    photo: null
+  }
+
+  takePicture = (photo) => {
+      this.setState({ photo })
   }
 
   handleClick = () => {
-    this.setState({ cameraClicked: true })
+    this.setState({ cameraClicked: !this.state.cameraClicked })
   }
 
   displayCamera = () => {
-    return <NewCamera/>
+    return <NewCamera takePicture={this.takePicture} />
   }
 
   displayFilm = () => {
     return (
       <View style={styles.photoPaper}>
-        <FadeInView style={styles.photo}></FadeInView>
+        <FadeInView style={styles.photo}>
+          <Image 
+          style={{
+              width: '100%', 
+              height: '100%',
+              resizeMode: "contain"
+          }}
+          source={{
+              uri: this.state.photo.uri,
+          }} ></Image>
+        </FadeInView>
       </View>
     )
   }
 
-  render(){
+  render() {
     const { navigation } = this.props
     return (
         <ScrollView>
@@ -34,7 +56,9 @@ export default class Home extends Component {
             <View style={styles.cameraContainer}>
               <View style={styles.cameraViewfinder}></View>
               <View style={styles.cameraBody}>
-                <TouchableHighlight style={styles.button} onPress={this.handleClick}></TouchableHighlight>
+                <TouchableHighlight onPress={this.handleClick}>
+                  <View style={styles.button} ></View>
+                </TouchableHighlight>
                 <View style={styles.lens}></View>
               </View>    
               <View style={styles.cameraBase}>
@@ -54,7 +78,7 @@ export default class Home extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    // flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
@@ -120,7 +144,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
-    padding: 20,
+    height: '100%',
+    // padding: 20,
   },
   photoPaper: {
     backgroundColor: 'hsl(194, 9%, 95%)',

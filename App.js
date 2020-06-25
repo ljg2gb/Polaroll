@@ -28,5 +28,20 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  colors: {
+    // purple
+    color: 'hsl(276, 29%, 55%)', 
+    // red
+    color: 'hsl(4, 85%, 63%)',
+    // orange
+    color: 'hsl(32, 82%, 51%)',
+    // yellow
+    color: 'hsl(47, 100%, 51%)',
+    // green
+    color: 'hsl(132, 41%, 59%)',
+    // blue
+    color: 'hsl(198, 100%, 42%)',
+    
+  }
 });
 

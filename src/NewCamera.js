@@ -10,7 +10,7 @@ export default class NewCamera extends Component {
     state = {
         hasPermission: null,
         cameraType: Camera.Constants.Type.back,
-        photo: null
+        // photo: null
     }
 
     async componentDidMount() {
@@ -41,25 +41,24 @@ export default class NewCamera extends Component {
 
     takePicture = async () => {
         if (this.camera) {
-          let photo = await this.camera.takePictureAsync();
-          this.setState({photo})
-        //   this.displayPicture(photo)
+            let photo = await this.camera.takePictureAsync();
+            this.props.takePicture(photo)
         }
     }
 
-    displayPicture = (photo) => {
-        return(
-            <Image 
-            style={{
-                width: '100%', 
-                height: '100%',
-                resizeMode: "contain"
-            }}
-            source={{
-                uri: photo.uri,
-            }} ></Image>
-        )
-    }
+    // displayPicture = (photo) => {
+    //     return(
+    //         <Image 
+    //         style={{
+    //             width: '100%', 
+    //             height: '100%',
+    //             resizeMode: "contain"
+    //         }}
+    //         source={{
+    //             uri: photo.uri,
+    //         }} ></Image>
+    //     )
+    // }
 
     pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
@@ -75,9 +74,9 @@ export default class NewCamera extends Component {
           return <Text>No access to camera</Text>;
         } else {
           return (
-              <View style={{ flex: 1 }}>
-                <Camera style={{ flex: 1 }} type={this.state.cameraType} ref={ ref => { this.camera = ref }} >
-                    <View style={{flex:1, flexDirection:"row",justifyContent:"space-between",margin:20}}>
+              <View style={{ height: 320, width: '100%'}} >
+                <Camera style={{flex: 1}}  type={this.state.cameraType} ref={ ref => { this.camera = ref }} >
+                    <View style={{flex: 1, flexDirection:"row", justifyContent:"space-between", margin:20}}>
                         <TouchableOpacity
                             style={{
                             alignSelf: 'flex-end',
@@ -119,9 +118,9 @@ export default class NewCamera extends Component {
                         </TouchableOpacity>
                     </View>
                 </Camera>
-                <View style={{flex: 1}}>
+                {/* <View style={{flex: 1}}>
                     {this.state.photo ? this.displayPicture(this.state.photo) : null}
-                </View>
+                </View> */}
             </View>
           );
         }
