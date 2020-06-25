@@ -1,20 +1,30 @@
-import React, { Component } from 'react';
+import React, { Component, useRef, useEffect } from 'react';
 import { StyleSheet, Text, ScrollView, View, Animated, Button } from 'react-native';
-import { NavigationContainer } from '@react-navigation/native';
+import FadeInView from './FadeInView'
+import NewCamera from './NewCamera'
+
 
 
 export default class Home extends Component {
   state = {
-   develop: 0
+   cameraClicked: false
   }
 
-//   fadeInView = () => {
-//     // console.log(this.state.develop)
-//   }
+  handleClick = () => {
+    this.setState({ cameraClicked: true })
+  }
 
-//   // componentDidMount() {
-//   //   this.FadeInView
-//   // }
+  displayCamera = () => {
+    return <NewCamera/>
+  }
+
+  displayFilm = () => {
+    return (
+      <View style={styles.photoPaper}>
+        <FadeInView style={styles.photo}></FadeInView>
+      </View>
+    )
+  }
 
   render(){
     const { navigation } = this.props
@@ -24,19 +34,18 @@ export default class Home extends Component {
             <View style={styles.cameraContainer}>
               <View style={styles.cameraViewfinder}></View>
               <View style={styles.cameraBody}>
-                <View style={styles.button}></View>
+                <TouchableHighlight style={styles.button} onPress={this.handleClick}></TouchableHighlight>
                 <View style={styles.lens}></View>
-              </View>
+              </View>    
               <View style={styles.cameraBase}>
                 <View style={styles.printer}></View>
               </View>
-            <View style={styles.photoPaper}>
-              <View style={styles.photo}></View>
             </View>
-            </View>
+            <View style={styles.photoContainer}>
+              {this.state.cameraClicked ? this.displayFilm() : this.displayCamera() }
+            </View>  
           </View>
           <Button title={"Go to Animation"} onPress={ () => navigation.navigate('CameraAnimation')}/>
-          <Button title={"Go to Camera Access"} onPress={ () => navigation.navigate('CameraAccess')}/>
           <Button title={"Go to New Camera"} onPress={ () => navigation.navigate('NewCamera')}/>
         </ScrollView>
     );
@@ -59,7 +68,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    height: '90%',
+    // height: '90%',
     width: '100%',
     padding: 20,
   },
@@ -103,6 +112,15 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 25,
     top: 30,
+  },
+
+  photoContainer: {
+    backgroundColor: 'hsl(250, 36%, 29%)',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    padding: 20,
   },
   photoPaper: {
     backgroundColor: 'hsl(194, 9%, 95%)',
