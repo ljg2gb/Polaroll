@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { StyleSheet, ScrollView, View, Button, TouchableHighlight, Image } from 'react-native';
 import FadeInView from './FadeInView'
 import NewCamera from './NewCamera'
-import NewHome from './NewHome'
 import { Camera } from 'expo-camera';
 
 
@@ -72,7 +71,6 @@ export default class Home extends Component {
           </View>
           <Button title={"Go to Animation"} onPress={ () => navigation.navigate('CameraAnimation')}/>
           <Button title={"Go to New Camera"} onPress={ () => navigation.navigate('NewCamera')}/>
-          <Button title={"Go to New Home"} onPress={ () => navigation.navigate('NewHome')}/>
         </ScrollView>
     );
   }

@@ -21,7 +21,8 @@
     "react-native-safe-area-context": "0.7.3",
     "@react-native-community/masked-view": "0.1.6",
     "expo-camera": "~8.2.0",
-    "expo-image-picker": "~8.1.0"
+    "expo-image-picker": "~8.1.0",
+    "expo-sensors": "~8.1.0"
   },
   "devDependencies": {
     "babel-preset-expo": "~8.1.0",

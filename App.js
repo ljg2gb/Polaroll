@@ -6,6 +6,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import Home from './src/Home';
 import CameraAnimation from './src/CameraAnimation';
 import NewCamera from './src/NewCamera';
+import NewHome from './src/NewHome'
 
 const Stack = createStackNavigator();
 
@@ -16,6 +17,7 @@ export default function App() {
         <Stack.Screen name={"Home"} component={Home}/>
         <Stack.Screen name={"CameraAnimation"} component={CameraAnimation} />
         <Stack.Screen name={"NewCamera"} component={NewCamera} />
+        <Stack.Screen name={"NewHome"} component={NewHome} />
       </Stack.Navigator>
     </NavigationContainer>
   );

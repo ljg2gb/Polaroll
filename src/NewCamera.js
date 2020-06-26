@@ -1,16 +1,17 @@
 import React, { Component } from 'react';
-import { View, TouchableOpacity, Image } from 'react-native';
+import { View, TouchableOpacity } from 'react-native';
 import { Camera } from 'expo-camera';
 import * as Permissions from 'expo-permissions';
 import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 import * as ImagePicker from 'expo-image-picker';
+import CameraGraphic from './CameraGraphic'
+
 
 export default class NewCamera extends Component {
 
     state = {
         hasPermission: null,
-        cameraType: Camera.Constants.Type.back,
-        // photo: null
+        cameraType: Camera.Constants.Type.back
     }
 
     async componentDidMount() {
@@ -67,6 +68,7 @@ export default class NewCamera extends Component {
       }
 
     render() {
+        <CameraGraphic></CameraGraphic>
         const { hasPermission } = this.state
         if (hasPermission === null) {
           return <View />;
