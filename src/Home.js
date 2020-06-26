@@ -1,81 +1,167 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, View, Button, TouchableHighlight, Image } from 'react-native';
-import FadeInView from './FadeInView'
-import NewCamera from './NewCamera'
-import NewHome from './NewHome'
+import { StyleSheet, ScrollView, View, Button, TouchableHighlight, TouchableOpacity, Image } from 'react-native';
+import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
-
-
-{/* <View style={{flex: 1}}>
-{this.state.photo ? this.displayPicture(this.state.photo) : null}
-</View> */}
+import * as ImagePicker from 'expo-image-picker';
+import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import FadeInView from './FadeInView'
 
 
 export default class Home extends Component {
-  state = {
-    cameraClicked: false,
-    // hasPermission: null,
-    // cameraType: Camera.Constants.Type.back,
-    photo: null
-  }
+    state = {
+        cameraClicked: false,
+        hasPermission: null,
+        cameraType: Camera.Constants.Type.back,
+        photo: null
+    }
 
-  takePicture = (photo) => {
-      this.setState({ photo })
-  }
+    handleClick = () => {
+        // onPress={()=>this.takePicture()
+        this.takePicture()
+        this.setState({ cameraClicked: !this.state.cameraClicked })
+    }
+    
+    takePicture = async () => {
+        if (this.camera) {
+            let photo = await this.camera.takePictureAsync();
+            this.setState({ photo })
+        }
+    }
 
-  handleClick = () => {
-    this.setState({ cameraClicked: !this.state.cameraClicked })
-  }
-
-  displayCamera = () => {
-    return <NewCamera takePicture={this.takePicture} />
-  }
-
-  displayFilm = () => {
-    return (
-      <View style={styles.photoPaper}>
-        <FadeInView style={styles.photo}>
-          <Image 
-          style={{
-              width: '100%', 
-              height: '100%',
-              resizeMode: "contain"
-          }}
-          source={{
-              uri: this.state.photo.uri,
-          }} ></Image>
-        </FadeInView>
-      </View>
-    )
-  }
-
-  render() {
-    const { navigation } = this.props
-    return (
-        <ScrollView>
-          <View style={styles.container}>
-            <View style={styles.cameraContainer}>
-              <View style={styles.cameraViewfinder}></View>
-              <View style={styles.cameraBody}>
-                <TouchableHighlight onPress={this.handleClick}>
-                  <View style={styles.button} ></View>
-                </TouchableHighlight>
-                <View style={styles.lens}></View>
-              </View>    
-              <View style={styles.cameraBase}>
-                <View style={styles.printer}></View>
-              </View>
+    async componentDidMount() {
+        this.getPermissionAsync()
+    }  
+    
+    getPermissionAsync = async () => {
+        // Camera roll Permission 
+        if (Platform.OS === 'ios') {
+            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            if (status !== 'granted') {
+                alert('Sorry, we need camera roll permissions to make this work!');
+            }
+        }
+        // Camera Permission
+        const { status } = await Permissions.askAsync(Permissions.CAMERA);
+        this.setState({ hasPermission: status === 'granted' });
+    }
+    
+    handleCameraType = () => {
+        const { cameraType } = this.state
+        this.setState({cameraType:
+            cameraType === Camera.Constants.Type.back
+            ? Camera.Constants.Type.front
+            : Camera.Constants.Type.back
+        })
+    }
+    
+                    
+    pickImage = async () => {
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.Images,
+        });
+    }
+    
+    displayFilm = () => {
+        return (
+            <View style={styles.photoPaper}>
+                <FadeInView style={styles.photo}>
+                <Image 
+                style={{
+                    width: '100%', 
+                    height: '100%',
+                    resizeMode: "contain"
+                }}
+                source={{
+                    uri: this.state.photo.uri,
+                }} ></Image>
+                </FadeInView>
             </View>
-            <View style={styles.photoContainer}>
-              {this.state.cameraClicked ? this.displayFilm() : this.displayCamera() }
-            </View>  
-          </View>
-          <Button title={"Go to Animation"} onPress={ () => navigation.navigate('CameraAnimation')}/>
-          <Button title={"Go to New Camera"} onPress={ () => navigation.navigate('NewCamera')}/>
-          <Button title={"Go to New Home"} onPress={ () => navigation.navigate('NewHome')}/>
-        </ScrollView>
-    );
-  }
+        )
+    }
+
+    displayCamera = () => {
+        const { hasPermission } = this.state
+        if (hasPermission === null) {
+            return <View />;
+        } else if (hasPermission === false) {
+            return <Text>No access to camera</Text>;
+        } else {
+            return (
+                <View style={{ height: 320, width: '100%'}} >
+                <Camera style={{flex: 1}}  type={this.state.cameraType} ref={ ref => { this.camera = ref }} >
+                    <View style={{flex: 1, flexDirection:"row", justifyContent:"space-between", margin: 20}}>
+                        <TouchableOpacity
+                            style={{
+                            alignSelf: 'flex-end',
+                            alignItems: 'center',
+                            backgroundColor: 'transparent',                  
+                            }}
+                            onPress={()=>this.pickImage()}
+                            >
+                            <Ionicons
+                                name="ios-photos"
+                                style={{ color: "#fff", fontSize: 40}}
+                            />
+                        </TouchableOpacity>
+                        {/* <TouchableOpacity
+                            style={{
+                            alignSelf: 'flex-end',
+                            alignItems: 'center',
+                            backgroundColor: 'transparent',
+                            }}
+                            onPress={()=>this.takePicture()}
+                            >
+                            <FontAwesome
+                                name="camera"
+                                style={{ color: "#fff", fontSize: 40}}
+                            />
+                        </TouchableOpacity> */}
+                        <TouchableOpacity
+                            style={{
+                            alignSelf: 'flex-end',
+                            alignItems: 'center',
+                            backgroundColor: 'transparent',
+                            }}
+                            onPress={()=>this.handleCameraType()}
+                            >
+                            <MaterialCommunityIcons
+                                name="camera-switch"
+                                style={{ color: "#fff", fontSize: 40}}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                </Camera>
+                </View>
+            )
+        }
+    }
+
+    render() {
+        const { navigation } = this.props
+        return (
+            <ScrollView>
+            <View style={styles.container}>
+                <View style={styles.cameraContainer}>
+                <View style={styles.cameraViewfinder}></View>
+                <View style={styles.cameraBody}>
+                    <TouchableHighlight onPress={this.handleClick}>
+                    <View style={styles.button} ></View>
+                    </TouchableHighlight>
+                    <View style={styles.lens}></View>
+                </View>    
+                <View style={styles.cameraBase}>
+                    <View style={styles.printer}></View>
+                </View>
+                </View>
+                <View style={styles.photoContainer}>
+                {this.state.cameraClicked ? this.displayFilm() : this.displayCamera() }
+                </View>  
+            </View>
+            {/* <Button title={"Go to Animation"} onPress={ () => navigation.navigate('CameraAnimation')}/>
+            <Button title={"Go to New Camera"} onPress={ () => navigation.navigate('NewCamera')}/> */}
+            </ScrollView>
+        );
+    }
 }
 
 const styles = StyleSheet.create({
@@ -164,3 +250,7 @@ const styles = StyleSheet.create({
     left: 15,
   }
 });
+
+
+
+

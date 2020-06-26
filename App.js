@@ -3,10 +3,8 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { NavigationContainer} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import Home from './src/Home';
-import CameraAnimation from './src/CameraAnimation';
-import NewCamera from './src/NewCamera';
-import NewHome from './src/NewHome'
+import Home from './src/Home'
+import LoginSignup from './src/LoginSignup'
 
 const Stack = createStackNavigator();
 
@@ -14,10 +12,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name={"Home"} component={Home}/>
-        <Stack.Screen name={"CameraAnimation"} component={CameraAnimation} />
-        <Stack.Screen name={"NewCamera"} component={NewCamera} />
-        <Stack.Screen name={"NewHome"} component={NewHome} />
+        <Stack.Screen name={"Home"} component={Home} />
+        <Stack.Screen name={"LoginSignup"} component={LoginSignup} />
       </Stack.Navigator>
     </NavigationContainer>
   );
