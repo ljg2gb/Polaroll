@@ -12,7 +12,7 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name={"Home"} component={Home} />
+        <Stack.Screen name={"Home"} component={Home} options={{ title: 'Polaroid Camera App' }}/>
         <Stack.Screen name={"LoginSignup"} component={LoginSignup} />
       </Stack.Navigator>
     </NavigationContainer>

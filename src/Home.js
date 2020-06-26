@@ -16,9 +16,8 @@ export default class Home extends Component {
     }
 
     handleClick = () => {
-        // onPress={()=>this.takePicture()
         this.takePicture()
-        this.setState({ cameraClicked: !this.state.cameraClicked })
+        // this.setState({ cameraClicked: !this.state.cameraClicked })
     }
     
     takePicture = async () => {
@@ -63,18 +62,13 @@ export default class Home extends Component {
     
     displayFilm = () => {
         return (
-            <View style={styles.photoPaper}>
-                <FadeInView style={styles.photo}>
-                <Image 
-                style={{
-                    width: '100%', 
-                    height: '100%',
-                    resizeMode: "contain"
-                }}
-                source={{
-                    uri: this.state.photo.uri,
-                }} ></Image>
-                </FadeInView>
+            <View>
+                <View style={styles.photoPaper}>
+                    <FadeInView style={styles.photo}>
+                    <Image  style={styles.image} source={{ uri: this.state.photo.uri }} ></Image>
+                    </FadeInView>
+                </View>
+                <Button title={"Save photo"} onPress={ () => this.props.navigation.navigate('LoginSignup')} />
             </View>
         )
     }
@@ -88,49 +82,16 @@ export default class Home extends Component {
         } else {
             return (
                 <View style={{ height: 320, width: '100%'}} >
-                <Camera style={{flex: 1}}  type={this.state.cameraType} ref={ ref => { this.camera = ref }} >
-                    <View style={{flex: 1, flexDirection:"row", justifyContent:"space-between", margin: 20}}>
-                        <TouchableOpacity
-                            style={{
-                            alignSelf: 'flex-end',
-                            alignItems: 'center',
-                            backgroundColor: 'transparent',                  
-                            }}
-                            onPress={()=>this.pickImage()}
-                            >
-                            <Ionicons
-                                name="ios-photos"
-                                style={{ color: "#fff", fontSize: 40}}
-                            />
-                        </TouchableOpacity>
-                        {/* <TouchableOpacity
-                            style={{
-                            alignSelf: 'flex-end',
-                            alignItems: 'center',
-                            backgroundColor: 'transparent',
-                            }}
-                            onPress={()=>this.takePicture()}
-                            >
-                            <FontAwesome
-                                name="camera"
-                                style={{ color: "#fff", fontSize: 40}}
-                            />
-                        </TouchableOpacity> */}
-                        <TouchableOpacity
-                            style={{
-                            alignSelf: 'flex-end',
-                            alignItems: 'center',
-                            backgroundColor: 'transparent',
-                            }}
-                            onPress={()=>this.handleCameraType()}
-                            >
-                            <MaterialCommunityIcons
-                                name="camera-switch"
-                                style={{ color: "#fff", fontSize: 40}}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                </Camera>
+                    <Camera style={{flex: 1}}  type={this.state.cameraType} ref={ ref => { this.camera = ref }} >
+                        <View style={{flex: 1, flexDirection:"row", justifyContent:"space-between", margin: 20}}>
+                            <TouchableOpacity style={styles.cameraButtons} onPress={()=>this.pickImage()} >
+                                <Ionicons name="ios-photos" style={{ color: "#fff", fontSize: 30}} />
+                            </TouchableOpacity>
+                            <TouchableOpacity style={styles.cameraButtons} onPress={()=>this.handleCameraType()} >
+                                <MaterialCommunityIcons name="camera-switch" style={{ color: "#fff", fontSize: 30}} />
+                            </TouchableOpacity>
+                        </View>
+                    </Camera>
                 </View>
             )
         }
@@ -147,18 +108,19 @@ export default class Home extends Component {
                     <TouchableHighlight onPress={this.handleClick}>
                     <View style={styles.button} ></View>
                     </TouchableHighlight>
-                    <View style={styles.lens}></View>
+                    <View style={styles.lens}>
+                        <View style={styles.innerLens}></View>
+                    </View>
                 </View>    
                 <View style={styles.cameraBase}>
                     <View style={styles.printer}></View>
                 </View>
                 </View>
                 <View style={styles.photoContainer}>
-                {this.state.cameraClicked ? this.displayFilm() : this.displayCamera() }
+                {this.state.photo ? this.displayFilm() : this.displayCamera() }
                 </View>  
             </View>
-            {/* <Button title={"Go to Animation"} onPress={ () => navigation.navigate('CameraAnimation')}/>
-            <Button title={"Go to New Camera"} onPress={ () => navigation.navigate('NewCamera')}/> */}
+            <Button title={"Go to Login/Signup"} onPress={ () => navigation.navigate('LoginSignup')}/>
             </ScrollView>
         );
     }
@@ -176,7 +138,7 @@ const styles = StyleSheet.create({
     color: 'blue'
   },
   cameraContainer: {
-    backgroundColor: 'hsl(168, 36%, 29%)',
+    backgroundColor: 'hsl(132, 41%, 59%)',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
@@ -186,13 +148,13 @@ const styles = StyleSheet.create({
   },
   cameraViewfinder: {
     backgroundColor: 'hsl(43, 82%, 55%)',
-    height: 30,
-    width: 80,
+    height: 15,
+    width: 60,
   },
   cameraBody: {
     backgroundColor: 'hsl(194, 9%, 95%)',
     height: 150,
-    width: 300,
+    width: 250,
   },
   button: {
     backgroundColor: 'hsl(6, 87%, 42%)',
@@ -208,46 +170,65 @@ const styles = StyleSheet.create({
     height: 100,
     width: 100,
     position: 'absolute',
-    left: 100,
+    left: 75,
     top: 25,
+    borderRadius: 50,
+  },
+  innerLens: {
+    backgroundColor: 'hsl(43, 82%, 20%)',
+    height: 80,
+    width: 80,
+    position: 'absolute',
+    left: 10,
+    top: 10,
     borderRadius: 50,
   },
   cameraBase: {
     backgroundColor: 'hsl(199, 82%, 55%)',
-    height: 70,
-    width: 300
+    height: 50,
+    width: 250
   },
   printer: {
     backgroundColor: 'hsl(199, 82%, 24%)',
-    height: 10,
-    width: 250,
+    height: 6,
+    width: 200,
     position: 'absolute',
     left: 25,
-    top: 30,
+    top: 22,
+  },
+  cameraButtons: {
+    alignSelf: 'flex-end',
+    alignItems: 'center',
+    backgroundColor: 'transparent',
   },
 
   photoContainer: {
-    backgroundColor: 'hsl(250, 36%, 29%)',
+    backgroundColor: 'rgb(210,220,230)',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
     height: '100%',
-    // padding: 20,
+    padding: 20,
   },
   photoPaper: {
     backgroundColor: 'hsl(194, 9%, 95%)',
-    height: 300,
-    width: 230,
+    height: 220,
+    width: 180,
     margin: 20,
   },
   photo: {
     backgroundColor: 'hsl(199, 82%, 24%)',
-    height: 220,
-    width: 200,
+    height: 160,
+    width: 160,
     position: 'absolute',
-    top: 15,
-    left: 15,
+    top: 10,
+    left: 10,
+  },
+  image: {
+    width: '100%', 
+    height: '100%',
+    resizeMode: "cover"
   }
 });
 
