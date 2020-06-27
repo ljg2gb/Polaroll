@@ -121,6 +121,8 @@ export default class Home extends Component {
                 </View>  
             </View>
             <Button title={"Go to Login/Signup"} onPress={ () => navigation.navigate('LoginSignup')}/>
+            <Button title={"Go to Accelerometer"} onPress={ () => navigation.navigate('AccelerometerComponent')}/>
+            <Button title={"Go to Pedometer"} onPress={ () => navigation.navigate('PedometerComponent')}/>
             </ScrollView>
         );
     }

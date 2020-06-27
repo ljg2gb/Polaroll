@@ -5,6 +5,8 @@ import { NavigationContainer} from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import Home from './src/Home'
 import LoginSignup from './src/LoginSignup'
+import AccelerometerComponent from './src/AccelerometerComponent'
+import PedometerComponent from './src/PedometerComponent'
 
 const Stack = createStackNavigator();
 
@@ -14,6 +16,8 @@ export default function App() {
       <Stack.Navigator>
         <Stack.Screen name={"Home"} component={Home} options={{ title: 'Polaroid Camera App' }}/>
         <Stack.Screen name={"LoginSignup"} component={LoginSignup} />
+        <Stack.Screen name={"AccelerometerComponent"} component={AccelerometerComponent} />
+        <Stack.Screen name={"PedometerComponent"} component={PedometerComponent} />
       </Stack.Navigator>
     </NavigationContainer>
   );
