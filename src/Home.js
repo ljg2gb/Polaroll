@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     color: 'blue'
   },
   cameraContainer: {
-    backgroundColor: 'hsl(132, 41%, 59%)',
+    backgroundColor: 'rgb(210,220,230)',
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
