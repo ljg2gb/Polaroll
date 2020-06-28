@@ -7,8 +7,8 @@ const loginURL = "http://localhost:3000/login"
 export default class LoginForm extends Component {
 
     state = {
-        username: '',
-        password: ''
+        username: 'ljg2gb',
+        password: 'Lydia'
     }
 
     submit = () => {
@@ -19,21 +19,22 @@ export default class LoginForm extends Component {
             },
             body: JSON.stringify(this.state)
         })
-            .then(response => {
-                if (response.status === 200) {
-                this.setState({error: ""})
-                return response.json() 
-                } else if (response.status === 401) {
-                    throw new Error("Something is wrong with the username or password")
-                }
-            }) 
-            .then(result => handleResult(result))
-            // .catch(error => displayError(error.message))
+            .then(console.log)
+            // .then(response => {
+            //     if (response.status === 200) {
+            //     this.setState({error: ""})
+            //     return response.json() 
+            //     } else if (response.status === 401) {
+            //         throw new Error("Something is wrong with the username or password")
+            //     }
+            // }) 
+            // .then(result => handleResult(result))
+            // // .catch(error => displayError(error.message))
     }
 
-    handleResult = (result) => {
-        console.log(result)
-    }
+    // handleResult = (result) => {
+    //     console.log(result)
+    // }
 
     render() {
         return (
@@ -41,7 +42,7 @@ export default class LoginForm extends Component {
                 <Text style={styles.h1} >Login Form</Text>
                 <TextInput placeholder="username" onChangeText={(text) => {this.setState({username: text})}} style={styles.input}/>
                 <TextInput placeholder="password" secureTextEntry={true} onChangeText={(text) => {this.setState({password: text})}} style={styles.input}/>
-                <Button title="submit" onPress={this.submit()}/>
+                <Button title="submit" onPress={this.submit}/>
             </View>
         )
     }
