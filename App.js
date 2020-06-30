@@ -7,6 +7,7 @@ import Home from './src/Home'
 import LoginSignup from './src/LoginSignup'
 import AccelerometerComponent from './src/AccelerometerComponent'
 import PedometerComponent from './src/PedometerComponent'
+import Profile from './src/Profile'
 
 const Stack = createStackNavigator();
 
@@ -18,6 +19,7 @@ export default function App() {
         <Stack.Screen name={"LoginSignup"} component={LoginSignup} />
         <Stack.Screen name={"AccelerometerComponent"} component={AccelerometerComponent} />
         <Stack.Screen name={"PedometerComponent"} component={PedometerComponent} />
+        <Stack.Screen name={"Profile"} component={Profile} />
       </Stack.Navigator>
     </NavigationContainer>
   );

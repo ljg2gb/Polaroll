@@ -12,8 +12,19 @@ export default class Home extends Component {
         cameraClicked: false,
         hasPermission: null,
         cameraType: Camera.Constants.Type.back,
-        photo: null
+        photo: null,
+        // user_id: '',
+        // user_name: ''
     }
+
+    // setUser = (id, name) => {
+    //     this.setState({
+    //         user_id: id,
+    //         user_name: name
+    //     })
+    //     console.log("name", name)
+    //     console.log("id", id)
+    // }
 
     handleClick = () => {
         this.takePicture()
@@ -101,28 +112,28 @@ export default class Home extends Component {
         const { navigation } = this.props
         return (
             <ScrollView>
-            <View style={styles.container}>
-                <View style={styles.cameraContainer}>
-                <View style={styles.cameraViewfinder}></View>
-                <View style={styles.cameraBody}>
-                    <TouchableHighlight onPress={this.handleClick}>
-                    <View style={styles.button} ></View>
-                    </TouchableHighlight>
-                    <View style={styles.lens}>
-                        <View style={styles.innerLens}></View>
+                <View style={styles.container}>
+                    <View style={styles.cameraContainer}>
+                    <View style={styles.cameraViewfinder}></View>
+                    <View style={styles.cameraBody}>
+                        <TouchableHighlight onPress={this.handleClick}>
+                        <View style={styles.button} ></View>
+                        </TouchableHighlight>
+                        <View style={styles.lens}>
+                            <View style={styles.innerLens}></View>
+                        </View>
+                    </View>    
+                    <View style={styles.cameraBase}>
+                        <View style={styles.printer}></View>
                     </View>
-                </View>    
-                <View style={styles.cameraBase}>
-                    <View style={styles.printer}></View>
+                    </View>
+                    <View style={styles.photoContainer}>
+                    {this.state.photo ? this.displayFilm() : this.displayCamera() }
+                    </View>  
                 </View>
-                </View>
-                <View style={styles.photoContainer}>
-                {this.state.photo ? this.displayFilm() : this.displayCamera() }
-                </View>  
-            </View>
-            <Button title={"Go to Login/Signup"} onPress={ () => navigation.navigate('LoginSignup')}/>
-            <Button title={"Go to Accelerometer"} onPress={ () => navigation.navigate('AccelerometerComponent')}/>
-            <Button title={"Go to Pedometer"} onPress={ () => navigation.navigate('PedometerComponent')}/>
+                <Button navigation={navigation} title={"Go to Login/Signup"} onPress={ () => navigation.navigate('LoginSignup')}/>
+                {/* <Button title={"Go to Accelerometer"} onPress={ () => navigation.navigate('AccelerometerComponent')}/>
+                <Button title={"Go to Pedometer"} onPress={ () => navigation.navigate('PedometerComponent')}/> */}
             </ScrollView>
         );
     }
@@ -130,7 +141,6 @@ export default class Home extends Component {
 
 const styles = StyleSheet.create({
   container: {
-    // flex: 1,
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
