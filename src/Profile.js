@@ -22,7 +22,7 @@ export default function Profile() {
             <ProfileHeader></ProfileHeader>
             <Text>Profile Page</Text>
             {/* {token ? <Text>My photos</Text> : null} */}
-            <View>
+            <View style={{flex: 1,}}>
                 {displayPhotos()}
             </View>
         </View>
