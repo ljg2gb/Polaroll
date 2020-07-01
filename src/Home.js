@@ -26,87 +26,17 @@ export default class Home extends Component {
     //     console.log("id", id)
     // }
 
-    handleClick = () => {
-        this.takePicture()
-        // this.setState({ cameraClicked: !this.state.cameraClicked })
-    }
-    
-    takePicture = async () => {
-        if (this.camera) {
-            let photo = await this.camera.takePictureAsync();
-            this.setState({ photo })
-        }
+    setPhoto = () => {
+        console.log(this.props.route.params.photo)
+        this.setState({
+            photo: this.props.route.params.photo
+        })
     }
 
     async componentDidMount() {
-        this.getPermissionAsync()
+        // this.getPermissionAsync()
+        this.setPhoto()
     }  
-    
-    getPermissionAsync = async () => {
-        // Camera roll Permission 
-        if (Platform.OS === 'ios') {
-            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
-            if (status !== 'granted') {
-                alert('Sorry, we need camera roll permissions to make this work!');
-            }
-        }
-        // Camera Permission
-        const { status } = await Permissions.askAsync(Permissions.CAMERA);
-        this.setState({ hasPermission: status === 'granted' });
-    }
-    
-    handleCameraType = () => {
-        const { cameraType } = this.state
-        this.setState({cameraType:
-            cameraType === Camera.Constants.Type.back
-            ? Camera.Constants.Type.front
-            : Camera.Constants.Type.back
-        })
-    }
-    
-                    
-    pickImage = async () => {
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.Images,
-        });
-    }
-    
-    displayFilm = () => {
-        return (
-            <View>
-                <View style={styles.photoPaper}>
-                    <FadeInView style={styles.photo}>
-                    <Image  style={styles.image} source={{ uri: this.state.photo.uri }} ></Image>
-                    </FadeInView>
-                </View>
-                <Button title={"Save photo"} onPress={ () => this.props.navigation.navigate('LoginSignup')} />
-            </View>
-        )
-    }
-
-    displayCamera = () => {
-        const { hasPermission } = this.state
-        if (hasPermission === null) {
-            return <View />;
-        } else if (hasPermission === false) {
-            return <Text>No access to camera</Text>;
-        } else {
-            return (
-                <View style={{ height: 320, width: '100%'}} >
-                    <Camera style={{flex: 1}}  type={this.state.cameraType} ref={ ref => { this.camera = ref }} >
-                        <View style={{flex: 1, flexDirection:"row", justifyContent:"space-between", margin: 20}}>
-                            <TouchableOpacity style={styles.cameraButtons} onPress={()=>this.pickImage()} >
-                                <Ionicons name="ios-photos" style={{ color: "#fff", fontSize: 30}} />
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.cameraButtons} onPress={()=>this.handleCameraType()} >
-                                <MaterialCommunityIcons name="camera-switch" style={{ color: "#fff", fontSize: 30}} />
-                            </TouchableOpacity>
-                        </View>
-                    </Camera>
-                </View>
-            )
-        }
-    }
 
     render() {
         const { navigation } = this.props
@@ -114,24 +44,30 @@ export default class Home extends Component {
             <ScrollView>
                 <View style={styles.container}>
                     <View style={styles.cameraContainer}>
-                    <View style={styles.cameraViewfinder}></View>
-                    <View style={styles.cameraBody}>
-                        <TouchableHighlight onPress={this.handleClick}>
-                        <View style={styles.button} ></View>
-                        </TouchableHighlight>
-                        <View style={styles.lens}>
-                            <View style={styles.innerLens}></View>
+                        <View style={styles.cameraViewfinder}></View>
+                        <View style={styles.cameraBody}>
+                            <View style={styles.button} ></View>
+                            <View style={styles.lens}>
+                                <View style={styles.innerLens}></View>
+                            </View>
+                        </View>    
+                        <View style={styles.cameraBase}>
+                            <View style={styles.printer}></View>
                         </View>
-                    </View>    
-                    <View style={styles.cameraBase}>
-                        <View style={styles.printer}></View>
-                    </View>
                     </View>
                     <View style={styles.photoContainer}>
-                    {this.state.photo ? this.displayFilm() : this.displayCamera() }
+                        <View>
+                            <View style={styles.photoPaper}>
+                                <FadeInView style={styles.photo}>
+                                    <Image style={styles.image} source={{ uri: this.props.route.params.photo.uri }} ></Image>
+                                </FadeInView>
+                            </View>
+                            <Button title={"Save photo"} onPress={ () => this.props.navigation.navigate('LoginSignup')} />
+                        </View>
                     </View>  
                 </View>
                 <Button navigation={navigation} title={"Go to Login/Signup"} onPress={ () => navigation.navigate('LoginSignup')}/>
+                <Button navigation={navigation} title={"Viewfinder"} onPress={ () => navigation.navigate('Viewfinder')}/>
                 {/* <Button title={"Go to Accelerometer"} onPress={ () => navigation.navigate('AccelerometerComponent')}/>
                 <Button title={"Go to Pedometer"} onPress={ () => navigation.navigate('PedometerComponent')}/> */}
             </ScrollView>
