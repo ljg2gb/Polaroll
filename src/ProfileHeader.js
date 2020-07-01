@@ -4,8 +4,8 @@ import {View, Text} from "react-native";
 export default function ProfileHeader() {
 
     return(
-        <View style={{backgroundColor: 'skyblue', height: 100, width: '100%'}}>
-            <Text>Hi, 'user's name'</Text>
+        <View style={{backgroundColor: 'skyblue', width: '100%',}}>
+            <Text style={{fontSize: 30, alignSelf: 'center', margin: 15,}}>Hi Meredith!</Text>
         </View>
     )
 }

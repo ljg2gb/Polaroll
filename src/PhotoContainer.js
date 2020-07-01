@@ -4,8 +4,8 @@ import {View} from "react-native";
 export default function PhotoContainer() {
 
     return(
-        <View style={{backgroundColor: 'rgb(50, 60, 200)', height: 130, width: 110}}>
-            <View style={{backgroundColor: 'rgb(245, 230, 240)', height: 100, width: 100, position: 'absolute', top: 5, left: 5, }}></View>
+        <View style={{backgroundColor: 'white', height: 100, width: '22%', margin: 5}}>
+            <View style={{backgroundColor: 'hsl(198, 100%, 12%)', height: 70, width: '90%', position: 'absolute', top: '5%', left: '5%', }}></View>
         </View>
     )
 }

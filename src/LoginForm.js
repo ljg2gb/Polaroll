@@ -33,11 +33,11 @@ export default class LoginForm extends Component {
     }
 
     handleResult = (result) => {
-        console.log("result", result)
-        console.log("result token", result.token)
-        SecureStore.setItemAsync("token", result.token)
-        SecureStore.setItemAsync("user_id", result.user_id)
-        SecureStore.setItemAsync("user_name", result.user_name)
+        // console.log("result", result)
+        // console.log("result token", result.token)
+        // SecureStore.setItemAsync("token", result.token)
+        // SecureStore.setItemAsync("user_id", result.user_id)
+        // SecureStore.setItemAsync("user_name", result.user_name)
         this.navigateToProfile()
     }
     

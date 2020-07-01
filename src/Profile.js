@@ -3,6 +3,7 @@ import {View, Text} from 'react-native'
 import * as SecureStore from 'expo-secure-store';
 import ProfileHeader from './ProfileHeader'
 import PhotoContainer from './PhotoContainer'
+import { ScrollView } from 'react-native-gesture-handler';
 
 export default function Profile() {
     // const token = SecureStore.getItemAsync("token")
@@ -13,18 +14,18 @@ export default function Profile() {
     // console.log("stored name", name)
 
     const displayPhotos = () => {
-        const photos = ["photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo"]
+        const photos = ["photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo"]
         return photos.map( photo => <PhotoContainer/> )
     }
 
     return(
         <View>
-            <ProfileHeader></ProfileHeader>
-            <Text>Profile Page</Text>
-            {/* {token ? <Text>My photos</Text> : null} */}
-            <View style={{flex: 1,}}>
-                {displayPhotos()}
-            </View>
+            <ScrollView>
+                <ProfileHeader></ProfileHeader>
+                <View style={{backgroundColor: 'hsl(198, 100%, 42%)', justifyContent: 'center', flex: 1, flexWrap: 'wrap', flexDirection: 'row', marginTop: 5,}}>
+                    {displayPhotos()}
+                </View>
+            </ScrollView>
         </View>
     )
 }
