@@ -1,33 +1,37 @@
 import React, { Component } from 'react';
-import { Animated, Text, View } from 'react-native';
-import { render } from 'react-dom';
+import { Animated } from 'react-native';
 
-export default class FadeInView extends Component {
+export default class TransitionDownView extends Component {
 
     state = {
-        transitionAnim: new Animated.Value(0)
+        moveAnim: new Animated.Value(1)
     }
    
     componentDidMount = () => {
       Animated.timing(
-        this.state.transitionAnim,
+        this.state.moveAnim,
         {
-          toValue: 1,
-          duration: 10000,
+          toValue: 0,
+          duration: 3000,
         }
       ).start();
     }
   
     render() {
-        return (
-        <Animated.View                 // Special animatable View
-            style={{
+      return (
+        <Animated.View
+          style={{
             ...this.props.style,
-            opacity: this.state.transitionAnim,         // Bind opacity to animated value
-            }}
+            transform: [{
+              translateY: this.state.moveAnim.interpolate({
+                inputRange: [0, 1],
+                outputRange: [220, 0] 
+              }),
+            }],
+          }}        
         >
-            {this.props.children}
+          {this.props.children}
         </Animated.View>
-        );
+      );
     }
 }

@@ -98,11 +98,21 @@ export default class Viewfinder extends Component {
 
 const styles = StyleSheet.create({
     mainContainer: { 
-        height: 320, 
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'hsl(240, 90%, 3%)',
+        // height: 320, 
         width: '100%'
     },
 
-    viewfinder: {flex: 1},
+    viewfinder: {
+        // flex: 1,
+        position: 'absolute',
+        top: 12,
+        width: 350,
+        height: 350,
+    },
 
     iconContainer: {
         flex: 1, 
