@@ -67,17 +67,19 @@ const styles = StyleSheet.create({
         padding: 20,
         flex: 1,
     },
-
+    
     h1: {
+        fontFamily: 'HelveticaNeue-Medium',
         textAlign: "center",
         fontSize: 30,
     },
 
     input: {
+        fontFamily: 'Courier',
         borderWidth: 2, 
         borderColor: 'skyblue', 
         margin: 10,
         padding: 5,
         width: 300
-    }
+    },
 })

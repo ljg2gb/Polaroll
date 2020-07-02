@@ -9,6 +9,7 @@ import AccelerometerComponent from './src/AccelerometerComponent'
 import PedometerComponent from './src/PedometerComponent'
 import Profile from './src/Profile'
 import Viewfinder from './src/Viewfinder'
+import UploadPhotoToFirebase from './src/Viewfinder'
 
 const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ export default function App() {
         <Stack.Screen name={"AccelerometerComponent"} component={AccelerometerComponent} />
         <Stack.Screen name={"PedometerComponent"} component={PedometerComponent} />
         <Stack.Screen name={"Profile"} component={Profile} options={{ title: 'My Profile' }} />
+        <Stack.Screen name={"UploadPhotoToFirebase"} component={UploadPhotoToFirebase} />
       </Stack.Navigator>
     </NavigationContainer>
   );

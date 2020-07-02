@@ -1,7 +1,9 @@
 import React from 'react'
 import { View, StyleSheet, ScrollView, Dimensions } from 'react-native'
+
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
+import Fonts from './Fonts'
 
 export default function LoginSignup({navigation}) {
 
@@ -11,6 +13,7 @@ export default function LoginSignup({navigation}) {
                 <ScrollView>
                     <LoginForm navigation={navigation}></LoginForm>
                     <SignupForm navigation={navigation}></SignupForm>
+                    <Fonts></Fonts>
                     <View style={styles.workaround}></View>
                 </ScrollView>
             </View>
