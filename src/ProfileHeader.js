@@ -1,11 +1,24 @@
 import React from 'react';
-import {View, Text} from "react-native";
+import {View, Text, StyleSheet} from "react-native";
 
 export default function ProfileHeader() {
 
     return(
-        <View style={{backgroundColor: 'skyblue', width: '100%',}}>
-            <Text style={{fontSize: 30, alignSelf: 'center', margin: 15,}}>Hi Meredith!</Text>
+        <View style={styles.welcomeContainer}>
+            <Text style={styles.welcome}>Hi Meredith!</Text>
         </View>
     )
 }
+
+const styles = StyleSheet.create({
+    welcomeContainer: {
+        backgroundColor: 'skyblue', 
+        width: '100%'
+    },
+
+    welcome: {
+        fontSize: 30, 
+        alignSelf: 'center', 
+        margin: 15,
+    }
+})

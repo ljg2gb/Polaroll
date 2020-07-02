@@ -1,20 +1,11 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, View, Button, TouchableHighlight, TouchableOpacity, Image } from 'react-native';
-import * as Permissions from 'expo-permissions';
-import { Camera } from 'expo-camera';
-import * as ImagePicker from 'expo-image-picker';
-import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { StyleSheet, ScrollView, View, Button, Image } from 'react-native';
 import FadeInView from './FadeInView'
 
 
 export default class Home extends Component {
     state = {
-        cameraClicked: false,
-        hasPermission: null,
-        cameraType: Camera.Constants.Type.back,
         photo: null,
-        // user_id: '',
-        // user_name: ''
     }
 
     // setUser = (id, name) => {
@@ -27,19 +18,17 @@ export default class Home extends Component {
     // }
 
     setPhoto = () => {
-        console.log(this.props.route.params.photo)
         this.setState({
             photo: this.props.route.params.photo
         })
     }
 
-    async componentDidMount() {
-        // this.getPermissionAsync()
+    async componentDidUpdate() {
         this.setPhoto()
     }  
 
     render() {
-        const { navigation } = this.props
+        const { navigation, route } = this.props
         return (
             <ScrollView>
                 <View style={styles.container}>
@@ -59,10 +48,10 @@ export default class Home extends Component {
                         <View>
                             <View style={styles.photoPaper}>
                                 <FadeInView style={styles.photo}>
-                                    <Image style={styles.image} source={{ uri: this.props.route.params.photo.uri }} ></Image>
+                                    <Image style={styles.image} source={{ uri: route.params.photo.uri }} ></Image>
                                 </FadeInView>
                             </View>
-                            <Button title={"Save photo"} onPress={ () => this.props.navigation.navigate('LoginSignup')} />
+                            <Button title={"Save photo"} onPress={ () => navigation.navigate('LoginSignup')} />
                         </View>
                     </View>  
                 </View>
@@ -90,7 +79,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    // height: '90%',
     width: '100%',
     padding: 20,
   },

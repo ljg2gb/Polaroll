@@ -29,7 +29,11 @@ export default class LoginForm extends Component {
                 }
             }) 
             .then(result => this.handleResult(result))
-            // .catch(error => displayError(error.message))
+            .catch(error => this.displayError(error.message))
+    }
+
+    displayError = (errorMessage) => {
+        return errorMessage ? <Text>{errorMessage}</Text> : null
     }
 
     handleResult = (result) => {
@@ -49,9 +53,10 @@ export default class LoginForm extends Component {
         return (
             <View style={styles.body}>
                 <Text style={styles.h1} >Login Form</Text>
-                <TextInput placeholder="username" onChangeText={(text) => {this.setState({username: text} )}} style={styles.input}/>
-                <TextInput placeholder="password" secureTextEntry={true} onChangeText={(text) => {this.setState({password: text} )}} style={styles.input}/>
+                <TextInput style={styles.input} placeholder="username" onChangeText={(text) => {this.setState({username: text} )}}/>
+                <TextInput style={styles.input} placeholder="password" secureTextEntry={true} onChangeText={(text) => {this.setState({password: text} )}}/>
                 <Button title="submit" onPress={this.submit}/>
+                {this.displayError}
             </View>
         )
     }
@@ -62,10 +67,12 @@ const styles = StyleSheet.create({
         padding: 20,
         flex: 1,
     },
+
     h1: {
         textAlign: "center",
         fontSize: 30,
     },
+
     input: {
         borderWidth: 2, 
         borderColor: 'skyblue', 

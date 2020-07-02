@@ -69,24 +69,24 @@ export default class Viewfinder extends Component {
     }
     
     render() {
-        const { hasPermission } = this.state
+        const { hasPermission, cameraType } = this.state
         if (hasPermission === null) {
             return <View />;
         } else if (hasPermission === false) {
             return <Text>No access to camera</Text>;
         } else {
             return (
-                <View style={{ height: 320, width: '100%'}} >
-                    <Camera style={{flex: 1}}  type={this.state.cameraType} ref={ ref => { this.camera = ref }} >
-                        <View style={{flex: 1, flexDirection:"row", justifyContent:"space-between", margin: 20}}>
+                <View style={styles.mainContainer} >
+                    <Camera style={styles.viewfinder}  type={cameraType} ref={ ref => { this.camera = ref }} >
+                        <View style={styles.iconContainer}>
                             <TouchableOpacity style={styles.cameraButtons} onPress={()=>this.pickImage()} >
-                                <Ionicons name="ios-photos" style={{ color: "#fff", fontSize: 30}} />
+                                <Ionicons name="ios-photos" style={styles.sideIcon} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.cameraButtons} onPress={this.handleClick} >
-                                <FontAwesome name="circle" style={{ color: "red", fontSize: 40}} />
+                                <FontAwesome name="circle" style={styles.circleButton} />
                             </TouchableOpacity>
                             <TouchableOpacity style={styles.cameraButtons} onPress={()=>this.handleCameraType()} >
-                                <MaterialCommunityIcons name="camera-switch" style={{ color: "#fff", fontSize: 30}} />
+                                <MaterialCommunityIcons name="camera-switch" style={styles.sideIcon} />
                             </TouchableOpacity>
                         </View>
                     </Camera>
@@ -97,12 +97,35 @@ export default class Viewfinder extends Component {
 }
 
 const styles = StyleSheet.create({
+    mainContainer: { 
+        height: 320, 
+        width: '100%'
+    },
 
-  cameraButtons: {
-    alignSelf: 'flex-end',
-    alignItems: 'center',
-    backgroundColor: 'transparent',
-  },
+    viewfinder: {flex: 1},
+
+    iconContainer: {
+        flex: 1, 
+        flexDirection:"row", 
+        justifyContent:"space-between", 
+        margin: 20
+    },
+
+    sideIcon: { 
+        color: "#fff", 
+        fontSize: 30
+    },
+
+    circleButton: {
+        color: "red", 
+        fontSize: 40
+    },
+
+    cameraButtons: {
+        alignSelf: 'flex-end',
+        alignItems: 'center',
+        backgroundColor: 'transparent',
+    },
 
 });
 
