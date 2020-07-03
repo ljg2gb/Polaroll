@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity} from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text} from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
 import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
+import { LinearGradient } from 'expo-linear-gradient';
+
+import { globalStyles } from '../styles/global';
 
 
 export default class Viewfinder extends Component {
@@ -76,21 +79,28 @@ export default class Viewfinder extends Component {
             return <Text>No access to camera</Text>;
         } else {
             return (
-                <View style={styles.mainContainer} >
-                    <Camera style={styles.viewfinder}  type={cameraType} ref={ ref => { this.camera = ref }} >
-                        <View style={styles.iconContainer}>
-                            <TouchableOpacity style={styles.cameraButtons} onPress={()=>this.pickImage()} >
-                                <Ionicons name="ios-photos" style={styles.sideIcon} />
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.cameraButtons} onPress={this.handleClick} >
-                                <FontAwesome name="circle" style={styles.circleButton} />
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.cameraButtons} onPress={()=>this.handleCameraType()} >
-                                <MaterialCommunityIcons name="camera-switch" style={styles.sideIcon} />
-                            </TouchableOpacity>
-                        </View>
-                    </Camera>
-                </View>
+                    <LinearGradient colors={['#6a5299','#f25851', '#f76b2b', '#ffc53d', '#80cb5f','#79b8c6']}
+                        style={{
+                            height: '100%',
+                            width: '100%',
+                            flex: 1,
+                            alignItems: 'center',
+                        }}>
+                        <Text style={globalStyles.h1} >Welcome to Polaroll!</Text>
+                        <Camera style={styles.viewfinder}  type={cameraType} ref={ ref => { this.camera = ref }} >
+                            <View style={styles.iconContainer}>
+                                <TouchableOpacity style={styles.cameraButtons} onPress={()=>this.pickImage()} >
+                                    <Ionicons name="ios-photos" style={styles.sideIcon} />
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.cameraButtons} onPress={this.handleClick} >
+                                    <FontAwesome name="circle" style={styles.circleButton} />
+                                </TouchableOpacity>
+                                <TouchableOpacity style={styles.cameraButtons} onPress={()=>this.handleCameraType()} >
+                                    <MaterialCommunityIcons name="camera-switch" style={styles.sideIcon} />
+                                </TouchableOpacity>
+                            </View>
+                        </Camera>
+                    </LinearGradient>
             )
         }
     }
@@ -99,17 +109,15 @@ export default class Viewfinder extends Component {
 const styles = StyleSheet.create({
     mainContainer: { 
         flex: 1,
-        justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: 'hsl(240, 90%, 3%)',
-        // height: 320, 
-        width: '100%'
+        // backgroundColor: 'hsl(240, 90%, 3%)',
+        height: '100%',
     },
 
     viewfinder: {
-        // flex: 1,
+        flex: 1,
         position: 'absolute',
-        top: 12,
+        top: 130,
         width: 350,
         height: 350,
     },

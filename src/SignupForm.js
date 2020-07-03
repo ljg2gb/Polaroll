@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, Button } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 
+import { globalStyles } from '../styles/global'
+
 const usersURL = "https://polaroll.herokuapp.com/users"
 
 export default class SignupForm extends Component {
@@ -40,12 +42,12 @@ export default class SignupForm extends Component {
 
     render() {
         return (
-            <View style={styles.body}>
-                <Text style={styles.h1}>Signup Form</Text>
-                <TextInput style={styles.input} placeholder="name" onChangeText={(text) => {this.setState({name: text})}}/>
-                <TextInput style={styles.input} placeholder="username" onChangeText={(text) => {this.setState({username: text})}}/>
-                <TextInput style={styles.input} placeholder="email" onChangeText={(text) => {this.setState({email: text})}}/>
-                <TextInput style={styles.input} placeholder="password" secureTextEntry={true} onChangeText={(text) => {this.setState({password: text})}}/>
+            <View style={globalStyles.body}>
+                <Text style={globalStyles.h2}>Signup Form</Text>
+                <TextInput style={globalStyles.input} placeholder="name" onChangeText={(text) => {this.setState({name: text})}}/>
+                <TextInput style={globalStyles.input} placeholder="username" onChangeText={(text) => {this.setState({username: text})}}/>
+                <TextInput style={globalStyles.input} placeholder="email" onChangeText={(text) => {this.setState({email: text})}}/>
+                <TextInput style={globalStyles.input} placeholder="password" secureTextEntry={true} onChangeText={(text) => {this.setState({password: text})}}/>
                 <Button title="submit" onPress={this.submit}/>
             </View>
         )

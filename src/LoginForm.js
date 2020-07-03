@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, Button } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
 import * as SecureStore from 'expo-secure-store';
+import { globalStyles } from '../styles/global'
 
 const loginURL = "https://polaroll.herokuapp.com/login"
 
@@ -51,35 +52,13 @@ export default class LoginForm extends Component {
 
     render() {
         return (
-            <View style={styles.body}>
-                <Text style={styles.h1} >Login Form</Text>
-                <TextInput style={styles.input} placeholder="username" onChangeText={(text) => {this.setState({username: text} )}}/>
-                <TextInput style={styles.input} placeholder="password" secureTextEntry={true} onChangeText={(text) => {this.setState({password: text} )}}/>
+            <View style={globalStyles.body}>
+                <Text style={globalStyles.h2}>Login Form</Text>
+                <TextInput style={globalStyles.input} placeholder="username" onChangeText={(text) => {this.setState({username: text} )}}/>
+                <TextInput style={globalStyles.input} placeholder="password" secureTextEntry={true} onChangeText={(text) => {this.setState({password: text} )}}/>
                 <Button title="submit" onPress={this.submit}/>
                 {this.displayError}
             </View>
         )
     }
 }
-
-const styles = StyleSheet.create({
-    body: {
-        padding: 20,
-        flex: 1,
-    },
-    
-    h1: {
-        fontFamily: 'HelveticaNeue-Medium',
-        textAlign: "center",
-        fontSize: 30,
-    },
-
-    input: {
-        fontFamily: 'Courier',
-        borderWidth: 2, 
-        borderColor: 'skyblue', 
-        margin: 10,
-        padding: 5,
-        width: 300
-    },
-})
