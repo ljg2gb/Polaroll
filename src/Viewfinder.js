@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text, Button} from 'react-native';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
@@ -7,7 +8,6 @@ import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icon
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { globalStyles } from '../styles/global';
-import { TouchableHighlight } from 'react-native-gesture-handler';
 
 
 export default class Viewfinder extends Component {
@@ -83,7 +83,8 @@ export default class Viewfinder extends Component {
             return (
                 <View style={styles.mainContainer}>
                         <View style={{flex: 1}}>
-                            <Text style={globalStyles.h1} >Welcome to Polaroll!</Text>
+                            <Text style={styles.intro} >Welcome to</Text>
+                            <Text style={globalStyles.h1} >Polaroll</Text>
                         </View>
                         <Camera style={styles.viewfinder}  type={cameraType} ref={ ref => { this.camera = ref }} >
                             <View style={styles.iconContainer}>
@@ -99,7 +100,6 @@ export default class Viewfinder extends Component {
                             </View>
                         </Camera>
                         <TouchableHighlight
-                            style={styles.buttonPosition}
                             navigation={navigation}
                             onPress={ () => navigation.navigate('LoginSignup')}>
                             <LinearGradient
@@ -107,7 +107,7 @@ export default class Viewfinder extends Component {
                                 style={styles.button}>
                                 <Text style={styles.buttonText}>Login or Signup</Text>
                             </LinearGradient>
-                            </TouchableHighlight>
+                        </TouchableHighlight>
                 </View>
             );
         }
@@ -165,6 +165,14 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontFamily: "HelveticaNeue-Bold",
         color: '#fff',
+    },
+    intro: {
+        fontFamily: 'Courier',
+        color: 'white',
+        fontSize: 18,
+        marginTop: 20,
+        textAlign: 'center'
+
     }
 });
 

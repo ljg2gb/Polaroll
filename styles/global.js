@@ -8,10 +8,10 @@ export const globalStyles = StyleSheet.create({
     },
 
     h1: {
-        fontFamily: "HelveticaNeue-Bold",
+        fontFamily: "HelveticaNeue-CondensedBold",
         color: 'white',
-        fontSize: 36,
-        margin: 20,
+        fontSize: 60,
+        // margin: 5,
         textAlign: 'center'
     },
 

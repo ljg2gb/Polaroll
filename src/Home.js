@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, View, Button, Image } from 'react-native';
+import { StyleSheet, ScrollView, View, Image, Text } from 'react-native';
+import { TouchableHighlight } from 'react-native-gesture-handler';
+import { LinearGradient } from 'expo-linear-gradient';
 
 import FadeInView from './FadeInView'
 import TransitionDownView from './TransitionDownView'
@@ -8,6 +10,13 @@ import TransitionDownView from './TransitionDownView'
 export default class Home extends Component {
     state = {
         photo: null,
+        animComplete: false,
+    }
+
+    completedAnimation = () => {
+        this.setState({
+            animComplete: true
+        })
     }
 
     // setUser = (id, name) => {
@@ -29,6 +38,22 @@ export default class Home extends Component {
         this.setPhoto()
     }  
 
+    displaySaveButton = () => {
+        if (this.state.animComplete) {
+            return (
+                <TouchableHighlight
+                    navigation={navigation}
+                    onPress={ () => navigation.navigate('LoginSignup')}>
+                    <LinearGradient
+                        colors={['#F04733', '#F88517', '#F7B227', '#85BC3D','#3188C2']}
+                        style={styles.button}>
+                        <Text style={styles.buttonText}>Save</Text>
+                    </LinearGradient>
+                </TouchableHighlight>
+            );
+        };
+    }
+
     render() {
         const { navigation, route } = this.props
         return (
@@ -37,7 +62,7 @@ export default class Home extends Component {
                         <View style={styles.cameraContainer}>
                             <View style={styles.cameraViewfinder}></View>
                             <View style={styles.cameraBody}>
-                                <View style={styles.button} ></View>
+                                <View style={styles.cameraButton} ></View>
                                 <View style={styles.lens}>
                                     <View style={styles.innerLens}></View>
                                 </View>
@@ -47,19 +72,27 @@ export default class Home extends Component {
                             </View>
                             <View style={styles.cameraBase2}>
                             </View>
-                        {/* <View style={styles.photoContainer}> */}
                             <View>
                                 <TransitionDownView style={styles.photoPaper}>
-                                    <FadeInView style={styles.photo}>
+                                    <View style={styles.photoBase}></View>
+                                    <FadeInView style={styles.photo} completedAnimation={this.completedAnimation}>
                                         <Image style={styles.image} source={{ uri: route.params.photo.uri }} ></Image>
                                     </FadeInView>
                                 </TransitionDownView>
                             </View>
                     </View>
                 </ScrollView>
-                        <Button title={"Save photo"} onPress={ () => navigation.navigate('LoginSignup')} />
-                        <Button navigation={navigation} title={"Go to Login/Signup"} onPress={ () => navigation.navigate('LoginSignup')}/>
-                        <Button navigation={navigation} title={"Viewfinder"} onPress={ () => navigation.navigate('Viewfinder')}/>
+                <FadeInView>
+                    <TouchableHighlight
+                        navigation={navigation}
+                        onPress={ () => navigation.navigate('LoginSignup')}>
+                        <LinearGradient
+                            colors={['#F04733', '#F88517', '#F7B227', '#85BC3D','#3188C2']}
+                            style={styles.button}>
+                            <Text style={styles.buttonText}>Save</Text>
+                        </LinearGradient>
+                    </TouchableHighlight>
+                </FadeInView>
             </View>
         );
     }
@@ -68,7 +101,8 @@ export default class Home extends Component {
 const styles = StyleSheet.create({
     main: {
         flex: 1,
-        backgroundColor: 'red',
+        backgroundColor: 'rgb(210,220,230)',
+        alignItems: 'center',
     },
   fonts: {
     fontSize: 16,
@@ -76,12 +110,11 @@ const styles = StyleSheet.create({
   },
   cameraContainer: {
     zIndex: 500,
-    backgroundColor: 'rgb(210,220,230)',
     justifyContent: 'center',
     alignItems: 'center',
     width: '100%',
     height: '100%',
-    paddingTop: 50,
+    paddingTop: 40,
   },
   cameraViewfinder: {
     zIndex: 500,
@@ -95,7 +128,7 @@ const styles = StyleSheet.create({
     height: 150,
     width: 250,
   },
-  button: {
+  cameraButton: {
     zIndex: 500,
     backgroundColor: 'hsl(6, 87%, 42%)',
     height: 30,
@@ -150,18 +183,24 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
 
-  photoContainer: {
-    backgroundColor: 'rgb(210,220,230)',
-  },
   photoPaper: {
-    position: 'absolute',
-    top: -275,
-    alignSelf: "center",
-    backgroundColor: 'hsl(194, 9%, 95%)',
-    height: 220,
-    width: 180,
-    margin: 20,
-  },
+      position: 'absolute',
+      top: -275,
+      alignSelf: "center",
+      backgroundColor: 'hsl(194, 9%, 95%)',
+      height: 220,
+      width: 180,
+      margin: 20,
+    },
+
+    photoBase: {
+        backgroundColor: 'hsl(204, 5%, 65%)',
+        height: 160,
+        width: 160,
+        position: 'absolute',
+        top: 10,
+        left: 10,
+    },
   photo: {
     backgroundColor: 'hsl(199, 82%, 24%)',
     height: 160,
@@ -174,7 +213,22 @@ const styles = StyleSheet.create({
     width: '100%', 
     height: '100%',
     resizeMode: "cover"
-  }
+  },
+
+  button: {
+      width: 180,
+    marginBottom: 35,
+    padding: 15, 
+    alignItems: 'center', 
+    borderRadius: 5,
+},
+
+buttonText: {
+    backgroundColor: 'transparent',
+    fontSize: 18,
+    fontFamily: "HelveticaNeue-Bold",
+    color: '#fff',
+},
 });
 
 

@@ -14,6 +14,7 @@ export default class LoginForm extends Component {
     }
 
     submit = () => {
+        console.log('submit loading!')
         fetch(loginURL, {
             method: "POST",
             headers: {
@@ -38,13 +39,38 @@ export default class LoginForm extends Component {
     }
 
     handleResult = (result) => {
-        // console.log("result", result)
-        // console.log("result token", result.token)
-        // SecureStore.setItemAsync("token", result.token)
-        // SecureStore.setItemAsync("user_id", result.user_id)
-        // SecureStore.setItemAsync("user_name", result.user_name)
-        this.navigateToProfile()
+        console.log("got result!")
+        this.remember(result)
     }
+    
+    remember = async ({token, user_id, user_name}) => {
+        const credentials = { token, user_id, user_name };
+        try {
+            await SecureStore.setItemAsync( 'userInfo', JSON.stringify(credentials) );
+            console.log("set user info")
+            this.navigateToProfile()
+        //   this.setState({ email: '', password: '' });
+        } catch (e) {
+          console.log(e);
+        }
+      };
+
+    // read = async () => {
+    //     try {
+    //         const credentials = await SecureStore.getItemAsync('userInfo');
+    //         console.log('value of credentials: ', credentials);
+
+    //         // if (credentials) {
+    //         // const myJson = JSON.parse(credentials);
+    //         // this.setState({
+    //         //     email: myJson.email,
+    //         //     password: myJson.password,
+    //         // });
+    //         // }
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // };
     
     navigateToProfile = () => {
         this.props.navigation.navigate('Profile')
@@ -57,6 +83,7 @@ export default class LoginForm extends Component {
                 <TextInput style={globalStyles.input} placeholder="username" onChangeText={(text) => {this.setState({username: text} )}}/>
                 <TextInput style={globalStyles.input} placeholder="password" secureTextEntry={true} onChangeText={(text) => {this.setState({password: text} )}}/>
                 <Button title="submit" onPress={this.submit}/>
+                <Button title="show credentials" onPress={this.read}/>
                 {this.displayError}
             </View>
         )

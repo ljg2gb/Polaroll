@@ -1,5 +1,5 @@
 import React from 'react'
-import {View, StyleSheet} from 'react-native'
+import {View, StyleSheet, Button} from 'react-native'
 import * as SecureStore from 'expo-secure-store';
 import { ScrollView } from 'react-native-gesture-handler';
 
@@ -19,6 +19,23 @@ export default function Profile() {
         return photos.map( photo => <SavedPhoto/> )
     }
 
+    read = async () => {
+        try {
+            const credentials = await SecureStore.getItemAsync('userInfo');
+            console.log('value of credentials: ', credentials);
+
+            // if (credentials) {
+            // const myJson = JSON.parse(credentials);
+            // this.setState({
+            //     email: myJson.email,
+            //     password: myJson.password,
+            // });
+            // }
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
     return(
         <View>
             <ScrollView>
@@ -26,6 +43,7 @@ export default function Profile() {
                 <View style={styles.photosContainer}>
                     {displaySavedPhotos()}
                 </View>
+                <Button title="show credentials" onPress={read}/>
             </ScrollView>
         </View>
     )
