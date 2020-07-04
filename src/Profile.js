@@ -36,6 +36,24 @@ export default function Profile() {
         }
     };
 
+    const readToken = async () => {
+        try {
+            const credentials = await SecureStore.getItemAsync('userInfo');
+            
+            if (credentials) {
+                const myJson = JSON.parse(credentials);
+                console.log('value of token:', myJson.token);
+            
+            // this.setState({
+            //     email: myJson.email,
+            //     password: myJson.password,
+            // });
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
     return(
         <View>
             <ScrollView>
@@ -44,6 +62,7 @@ export default function Profile() {
                     {displaySavedPhotos()}
                 </View>
                 <Button title="show credentials" onPress={read}/>
+                <Button title="show token" onPress={readToken}/>
             </ScrollView>
         </View>
     )

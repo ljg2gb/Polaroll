@@ -18,12 +18,40 @@ export default class Viewfinder extends Component {
         photo: null,
     }
 
+    async componentDidMount() {
+        this.getPermissionAsync()
+    }  
+    
     componentDidUpdate() {
         if (this.state.photo) {
             this.navigateToHome()
         }
     }
 
+    isToken = async () => {
+        try {
+            const credentials = await SecureStore.getItemAsync('userInfo');
+        
+            if (credentials) {
+                const myJson = JSON.parse(credentials);
+                if (myJson.token) {
+                    
+                }
+                console.log('value of token:', myJson.token);
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    };
+
+    displayProfileButton = () => {
+        
+    }
+
+    displayLoginButton = () => {
+        
+    }
+    
     navigateToHome = () => {
         this.props.navigation.navigate('Home', { 
             photo: this.state.photo 
@@ -41,10 +69,6 @@ export default class Viewfinder extends Component {
         }
     }
 
-    async componentDidMount() {
-        this.getPermissionAsync()
-    }  
-    
     getPermissionAsync = async () => {
         if (Platform.OS === 'ios') {
             const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
@@ -64,7 +88,7 @@ export default class Viewfinder extends Component {
             : Camera.Constants.Type.back
         })
     }
-                    
+    
     pickImage = async () => {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
@@ -72,6 +96,7 @@ export default class Viewfinder extends Component {
         this.setState({ photo: result });
     }
     
+
     render() {
         const { hasPermission, cameraType } = this.state;
         const { navigation } = this.props;
