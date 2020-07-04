@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, View, TouchableOpacity, Text, Button} from 'react-native';
+import * as SecureStore from 'expo-secure-store';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
@@ -16,50 +17,65 @@ export default class Viewfinder extends Component {
         hasPermission: null,
         cameraType: Camera.Constants.Type.back,
         photo: null,
+        buttonText: 'Login or Signup',
+        welcomeMessage: 'Welcome to',
+        userInfo: {},
     }
 
     async componentDidMount() {
         this.getPermissionAsync()
+        this.getFromSecureStore()
     }  
     
     componentDidUpdate() {
         if (this.state.photo) {
             this.navigateToHome()
-        }
+        };
     }
 
-    isToken = async () => {
+    getFromSecureStore = async () => {
         try {
             const credentials = await SecureStore.getItemAsync('userInfo');
-        
             if (credentials) {
-                const myJson = JSON.parse(credentials);
-                if (myJson.token) {
-                    
-                }
-                console.log('value of token:', myJson.token);
+                const userInfo = JSON.parse(credentials);
+                this.setState({ userInfo })
+                this.setDynamicContent(userInfo)
             }
         } catch (e) {
             console.log(e);
         }
+    }
+
+    setDynamicContent = (userInfo) => {
+        if (userInfo.token) {
+            this.setState({
+                buttonText: 'Go to My Profile',
+                welcomeMessage: `Hi ${userInfo.user_name}! Welcome back to`
+            })
+        } else {
+            this.setState({
+                buttonText: 'Login or Signup',
+                welcomeMessage: 'Welcome to'
+            })
+        }
     };
 
-    displayProfileButton = () => {
-        
+    navigateTo = () => {
+        const { userInfo } = this.state
+        const { navigation } = this.props
+        if (userInfo) {
+             navigation.navigate('Profile', { userInfo })
+        } else {
+            navigation.navigate('LoginSignup')
+        }
     }
 
-    displayLoginButton = () => {
-        
-    }
     
     navigateToHome = () => {
         this.props.navigation.navigate('Home', { 
-            photo: this.state.photo 
+            photo: this.state.photo,
+            userInfo: this.state.userInfo
         })
-    }
-
-    handleClick = () => {
-        this.takePicture()
     }
     
     takePicture = async () => {
@@ -96,9 +112,8 @@ export default class Viewfinder extends Component {
         this.setState({ photo: result });
     }
     
-
     render() {
-        const { hasPermission, cameraType } = this.state;
+        const { hasPermission, cameraType, buttonText, welcomeMessage } = this.state;
         const { navigation } = this.props;
         if (hasPermission === null) {
             return <View />;
@@ -108,7 +123,7 @@ export default class Viewfinder extends Component {
             return (
                 <View style={styles.mainContainer}>
                         <View style={{flex: 1}}>
-                            <Text style={styles.intro} >Welcome to</Text>
+                            <Text style={styles.intro} >{welcomeMessage}</Text>
                             <Text style={globalStyles.h1} >Polaroll</Text>
                         </View>
                         <Camera style={styles.viewfinder}  type={cameraType} ref={ ref => { this.camera = ref }} >
@@ -116,7 +131,7 @@ export default class Viewfinder extends Component {
                                 <TouchableOpacity style={styles.cameraButtons} onPress={()=>this.pickImage()} >
                                     <Ionicons name="ios-photos" style={styles.sideIcon} />
                                 </TouchableOpacity>
-                                <TouchableOpacity style={styles.cameraButtons} onPress={this.handleClick} >
+                                <TouchableOpacity style={styles.cameraButtons} onPress={this.takePicture} >
                                     <FontAwesome name="circle" style={styles.circleButton} />
                                 </TouchableOpacity>
                                 <TouchableOpacity style={styles.cameraButtons} onPress={()=>this.handleCameraType()} >
@@ -126,11 +141,11 @@ export default class Viewfinder extends Component {
                         </Camera>
                         <TouchableHighlight
                             navigation={navigation}
-                            onPress={ () => navigation.navigate('LoginSignup')}>
+                            onPress={this.navigateTo}>
                             <LinearGradient
                                 colors={['#F04733', '#F88517', '#F7B227', '#85BC3D','#3188C2']}
                                 style={styles.button}>
-                                <Text style={styles.buttonText}>Login or Signup</Text>
+                                <Text style={styles.buttonText}>{buttonText}</Text>
                             </LinearGradient>
                         </TouchableHighlight>
                 </View>

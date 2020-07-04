@@ -14,7 +14,6 @@ export default class LoginForm extends Component {
     }
 
     submit = () => {
-        console.log('submit loading!')
         fetch(loginURL, {
             method: "POST",
             headers: {
@@ -39,41 +38,21 @@ export default class LoginForm extends Component {
     }
 
     handleResult = (result) => {
-        console.log("got result!")
-        this.remember(result)
+        this.SetInSecureStore(result)
+        this.navigateToProfile(result)
     }
     
-    remember = async ({token, user_id, user_name}) => {
+    SetInSecureStore = async ({token, user_id, user_name}) => {
         const credentials = { token, user_id, user_name };
         try {
             await SecureStore.setItemAsync( 'userInfo', JSON.stringify(credentials) );
-            console.log("set user info")
-            this.navigateToProfile()
-        //   this.setState({ email: '', password: '' });
         } catch (e) {
           console.log(e);
         }
-      };
-
-    // read = async () => {
-    //     try {
-    //         const credentials = await SecureStore.getItemAsync('userInfo');
-    //         console.log('value of credentials: ', credentials);
-
-    //         // if (credentials) {
-    //         // const myJson = JSON.parse(credentials);
-    //         // this.setState({
-    //         //     email: myJson.email,
-    //         //     password: myJson.password,
-    //         // });
-    //         // }
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // };
+    };
     
-    navigateToProfile = () => {
-        this.props.navigation.navigate('Profile')
+    navigateToProfile = (userInfo) => {
+        this.props.navigation.navigate('Profile', { userInfo })
     }
 
     render() {

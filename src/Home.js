@@ -19,14 +19,16 @@ export default class Home extends Component {
         })
     }
 
-    // setUser = (id, name) => {
-    //     this.setState({
-    //         user_id: id,
-    //         user_name: name
-    //     })
-    //     console.log("name", name)
-    //     console.log("id", id)
-    // }
+    navigate = () => {
+        const {userInfo} = this.props.route.params;
+        const { navigation } = this.props;
+        if (userInfo) {
+            navigation.navigate('Profile', { userInfo })
+        } else {
+            navigation.navigate('LoginSignup')
+        }
+
+    }
 
     setPhoto = () => {
         this.setState({
@@ -85,7 +87,7 @@ export default class Home extends Component {
                 <FadeInView>
                     <TouchableHighlight
                         navigation={navigation}
-                        onPress={ () => navigation.navigate('LoginSignup')}>
+                        onPress={this.navigate}>
                         <LinearGradient
                             colors={['#F04733', '#F88517', '#F7B227', '#85BC3D','#3188C2']}
                             style={styles.button}>
