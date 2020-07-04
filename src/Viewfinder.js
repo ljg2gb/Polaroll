@@ -23,6 +23,9 @@ export default class Viewfinder extends Component {
     }
 
     async componentDidMount() {
+        this.setState({
+            photo: null
+        })
         this.getPermissionAsync()
         this.getFromSecureStore()
     }  
@@ -38,35 +41,46 @@ export default class Viewfinder extends Component {
             const credentials = await SecureStore.getItemAsync('userInfo');
             if (credentials) {
                 const userInfo = JSON.parse(credentials);
-                this.setState({ userInfo })
-                this.setDynamicContent(userInfo)
+                if (userInfo.token) {
+                    this.setDynamicContent(userInfo)
+                } else {
+                    this.resetGenericContent()
+                }
+            } else {
+                this.resetGenericContent()
             }
         } catch (e) {
             console.log(e);
         }
     }
-
+    
     setDynamicContent = (userInfo) => {
-        if (userInfo.token) {
-            this.setState({
-                buttonText: 'Go to My Profile',
-                welcomeMessage: `Hi ${userInfo.user_name}! Welcome back to`
-            })
-        } else {
-            this.setState({
-                buttonText: 'Login or Signup',
-                welcomeMessage: 'Welcome to'
-            })
-        }
+        this.setState({
+            userInfo,
+            buttonText: 'Go to My Profile',
+            welcomeMessage: `Hi ${userInfo.user_name}! Welcome back to`
+        })
     };
+
+    resetGenericContent = () => {
+        this.setState({
+            buttonText: 'Login or Signup',
+            welcomeMessage: 'Welcome to'
+        })
+    }
 
     navigateTo = () => {
         const { userInfo } = this.state
         const { navigation } = this.props
-        if (userInfo) {
-             navigation.navigate('Profile', { userInfo })
+        if (userInfo.token) {
+            navigation.navigate('Profile', { 
+                userInfo,
+                // navigation: this.props.navigation
+            })
         } else {
-            navigation.navigate('LoginSignup')
+            navigation.navigate('LoginSignup', 
+            // {navigation: this.props.navigation}
+            )
         }
     }
 
@@ -74,7 +88,8 @@ export default class Viewfinder extends Component {
     navigateToHome = () => {
         this.props.navigation.navigate('Home', { 
             photo: this.state.photo,
-            userInfo: this.state.userInfo
+            userInfo: this.state.userInfo,
+            // navigation: this.props.navigation
         })
     }
     

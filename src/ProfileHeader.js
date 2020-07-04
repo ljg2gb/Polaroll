@@ -28,6 +28,7 @@ export default class ProfileHeader extends Component {
 
     handleClick = () => {
         this.logout()
+        this.props.navigation.navigate('Viewfinder')
         // navigate back to profile
     }
 

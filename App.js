@@ -18,13 +18,13 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator>
-        <Stack.Screen name={"Viewfinder"} component={Viewfinder} options={{ title: 'Viewfinder' }} />
-        <Stack.Screen name={"Home"} component={Home} options={{ title: 'Polaroll - the Polaroid Camera App' }}/>
+        <Stack.Screen name={"Viewfinder"} component={Viewfinder} options={{ title: 'Take Photo' }} />
+        <Stack.Screen name={"Home"} component={Home} options={{ title: 'Print Photo' }}/>
         <Stack.Screen name={"LoginSignup"} component={LoginSignup} options={{ title: 'Login or Signup' }}/>
-        <Stack.Screen name={"AccelerometerComponent"} component={AccelerometerComponent} />
-        <Stack.Screen name={"PedometerComponent"} component={PedometerComponent} />
         <Stack.Screen name={"Profile"} component={Profile} options={{ title: 'My Profile' }} />
         <Stack.Screen name={"UploadPhotoToFirebase"} component={UploadPhotoToFirebase} />
+        <Stack.Screen name={"AccelerometerComponent"} component={AccelerometerComponent} />
+        <Stack.Screen name={"PedometerComponent"} component={PedometerComponent} />
       </Stack.Navigator>
     </NavigationContainer>
   );

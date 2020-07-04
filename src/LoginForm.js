@@ -63,7 +63,7 @@ export default class LoginForm extends Component {
                 <TextInput style={globalStyles.input} placeholder="password" secureTextEntry={true} onChangeText={(text) => {this.setState({password: text} )}}/>
                 <Button title="submit" onPress={this.submit}/>
                 <Button title="show credentials" onPress={this.read}/>
-                {this.displayError}
+                {/* {this.displayError} */}
             </View>
         )
     }

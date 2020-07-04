@@ -6,7 +6,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import ProfileHeader from './ProfileHeader'
 import SavedPhoto from './SavedPhoto'
 
-export default function Profile() {
+export default function Profile({ navigation }) {
 
     const displaySavedPhotos = () => {
         const photos = ["photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo"]
@@ -16,7 +16,7 @@ export default function Profile() {
     return(
         <View>
             <ScrollView>
-                <ProfileHeader></ProfileHeader>
+                <ProfileHeader navigation={navigation}></ProfileHeader>
                 <View style={styles.photosContainer}>
                     {displaySavedPhotos()}
                 </View>
