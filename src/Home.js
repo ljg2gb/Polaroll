@@ -55,9 +55,6 @@ export default class Home extends Component {
                                     </FadeInView>
                                 </TransitionDownView>
                             </View>
-                        {/* </View>   */}
-                        {/* <Button title={"Go to Accelerometer"} onPress={ () => navigation.navigate('AccelerometerComponent')}/>
-                        <Button title={"Go to Pedometer"} onPress={ () => navigation.navigate('PedometerComponent')}/> */}
                     </View>
                 </ScrollView>
                         <Button title={"Save photo"} onPress={ () => navigation.navigate('LoginSignup')} />
@@ -84,7 +81,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '100%',
     height: '100%',
-    paddingTop: 70,
+    paddingTop: 50,
   },
   cameraViewfinder: {
     zIndex: 500,
@@ -158,7 +155,7 @@ const styles = StyleSheet.create({
   },
   photoPaper: {
     position: 'absolute',
-    top: -250,
+    top: -275,
     alignSelf: "center",
     backgroundColor: 'hsl(194, 9%, 95%)',
     height: 220,

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, View, TouchableOpacity, Text} from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, Button} from 'react-native';
 import * as Permissions from 'expo-permissions';
 import { Camera } from 'expo-camera';
 import * as ImagePicker from 'expo-image-picker';
@@ -7,6 +7,7 @@ import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icon
 import { LinearGradient } from 'expo-linear-gradient';
 
 import { globalStyles } from '../styles/global';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 
 export default class Viewfinder extends Component {
@@ -68,25 +69,22 @@ export default class Viewfinder extends Component {
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.Images,
         });
-        this.setState({ photo: result })
+        this.setState({ photo: result });
     }
     
     render() {
-        const { hasPermission, cameraType } = this.state
+        const { hasPermission, cameraType } = this.state;
+        const { navigation } = this.props;
         if (hasPermission === null) {
             return <View />;
         } else if (hasPermission === false) {
             return <Text>No access to camera</Text>;
         } else {
             return (
-                    <LinearGradient colors={['#6a5299','#f25851', '#f76b2b', '#ffc53d', '#80cb5f','#79b8c6']}
-                        style={{
-                            height: '100%',
-                            width: '100%',
-                            flex: 1,
-                            alignItems: 'center',
-                        }}>
-                        <Text style={globalStyles.h1} >Welcome to Polaroll!</Text>
+                <View style={styles.mainContainer}>
+                        <View style={{flex: 1}}>
+                            <Text style={globalStyles.h1} >Welcome to Polaroll!</Text>
+                        </View>
                         <Camera style={styles.viewfinder}  type={cameraType} ref={ ref => { this.camera = ref }} >
                             <View style={styles.iconContainer}>
                                 <TouchableOpacity style={styles.cameraButtons} onPress={()=>this.pickImage()} >
@@ -100,8 +98,18 @@ export default class Viewfinder extends Component {
                                 </TouchableOpacity>
                             </View>
                         </Camera>
-                    </LinearGradient>
-            )
+                        <TouchableHighlight
+                            style={styles.buttonPosition}
+                            navigation={navigation}
+                            onPress={ () => navigation.navigate('LoginSignup')}>
+                            <LinearGradient
+                                colors={['#F04733', '#F88517', '#F7B227', '#85BC3D','#3188C2']}
+                                style={styles.button}>
+                                <Text style={styles.buttonText}>Login or Signup</Text>
+                            </LinearGradient>
+                            </TouchableHighlight>
+                </View>
+            );
         }
     }
 }
@@ -110,7 +118,7 @@ const styles = StyleSheet.create({
     mainContainer: { 
         flex: 1,
         alignItems: 'center',
-        // backgroundColor: 'hsl(240, 90%, 3%)',
+        backgroundColor: 'black',
         height: '100%',
     },
 
@@ -145,6 +153,19 @@ const styles = StyleSheet.create({
         backgroundColor: 'transparent',
     },
 
+    button: {
+        marginBottom: 35,
+        padding: 15, 
+        alignItems: 'center', 
+        borderRadius: 5,
+    },
+
+    buttonText: {
+        backgroundColor: 'transparent',
+        fontSize: 18,
+        fontFamily: "HelveticaNeue-Bold",
+        color: '#fff',
+    }
 });
 
 

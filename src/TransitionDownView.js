@@ -25,7 +25,7 @@ export default class TransitionDownView extends Component {
             transform: [{
               translateY: this.state.moveAnim.interpolate({
                 inputRange: [0, 1],
-                outputRange: [220, 0] 
+                outputRange: [270, 0] 
               }),
             }],
           }}        
