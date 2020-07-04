@@ -23,12 +23,12 @@ export default class Viewfinder extends Component {
     }
 
     async componentDidMount() {
-        this.setState({
-            photo: null
-        })
+        // this.setState({ 
+        //     photo: null 
+        // })
         this.getPermissionAsync()
         this.getFromSecureStore()
-    }  
+    }
     
     componentDidUpdate() {
         if (this.state.photo) {
