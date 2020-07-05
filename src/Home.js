@@ -3,7 +3,8 @@ import { StyleSheet, ScrollView, View, Image, Text } from 'react-native';
 import { TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AntDesign } from '@expo/vector-icons'; 
-
+import * as Permissions from 'expo-permissions';
+import * as MediaLibrary from 'expo-media-library';
 
 import FadeInView from './FadeInView'
 import TransitionDownView from './TransitionDownView'
@@ -17,7 +18,11 @@ let currentPolaroidIndex = 0
 export default class Home extends Component {
     state = {
         photo: null,
-        uniqueValue: 0,
+        uniqueValue: 0
+    }
+
+    componentDidMount() {
+        this.getPermissionAsync()
     }
 
     async componentDidUpdate() {
@@ -51,7 +56,32 @@ export default class Home extends Component {
             uniqueValue: this.state.uniqueValue + 1
         })
     }
-    
+
+    getPermissionAsync = async () => {
+        if (Platform.OS === 'ios') {
+            const { status } = await Permissions.askAsync(Permissions.CAMERA_ROLL);
+            if (status !== 'granted') {
+                alert('Sorry, we need camera roll permissions to make this work!');
+            }
+        }
+        const { status } = await Permissions.askAsync(Permissions.CAMERA);
+        this.setState({ hasPermission: status === 'granted' });
+    }
+
+    saveToCameraRoll = () => {
+        const uri = this.state.photo.uri
+        if (uri) {
+            MediaLibrary.saveToLibraryAsync(uri)
+            this.successfulSaveMessage()
+        } else {
+            alert('No photo selected!')
+        }
+    }
+
+    successfulSaveMessage = () => {
+        alert('Saved to Camera Roll!');
+    }
+
     navigate = () => {
         const {userInfo} = this.props.route.params;
         const { navigation } = this.props;
@@ -99,18 +129,22 @@ export default class Home extends Component {
                 </ScrollView>
 
                 <View style={styles.navbar} >
-                    <TouchableHighlight  
+                    <TouchableHighlight
+                        style={styles.navButton}  
                         onPress={() => navigation.navigate('Viewfinder')}>
                         <View>
                             <Text>Retake Photo</Text>
                         </View>
                     </TouchableHighlight>
-                    <TouchableHighlight >
+                    <TouchableHighlight 
+                        style={styles.navButton}
+                        onPress={this.saveToCameraRoll}>
                         <View>
                             <Text>Save to Camera Roll</Text>
                         </View>
                     </TouchableHighlight>
                     <TouchableHighlight
+                        style={styles.navButton}
                         navigation={navigation}
                         onPress={this.navigate}>
                         <View>
@@ -189,8 +223,12 @@ const styles = StyleSheet.create({
         height: 50,
         flexDirection: 'row',
         justifyContent: 'space-between'
+    },
 
-    }
+    navButton: {
+        textDecorationLine: 'underline'
+    },
+
 });
 
 

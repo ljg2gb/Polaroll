@@ -74,13 +74,10 @@ export default class Viewfinder extends Component {
         const { navigation } = this.props
         if (userInfo.token) {
             navigation.navigate('Profile', { 
-                userInfo,
-                // navigation: this.props.navigation
+                userInfo
             })
         } else {
-            navigation.navigate('LoginSignup', 
-            // {navigation: this.props.navigation}
-            )
+            navigation.navigate('LoginSignup')
         }
     }
 
@@ -88,8 +85,7 @@ export default class Viewfinder extends Component {
     navigateToHome = () => {
         this.props.navigation.navigate('Home', { 
             photo: this.state.photo,
-            userInfo: this.state.userInfo,
-            // navigation: this.props.navigation
+            userInfo: this.state.userInfo
         })
     }
     

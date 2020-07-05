@@ -30,7 +30,8 @@
     "react-native-screens": "~2.2.0",
     "react-native-swipe-navigation": "^1.0.0-beta",
     "react-native-web": "~0.11.7",
-    "expo-linear-gradient": "~8.1.0"
+    "expo-linear-gradient": "~8.1.0",
+    "expo-media-library": "~8.1.0"
   },
   "devDependencies": {
     "babel-preset-expo": "~8.1.0",
