@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StyleSheet, ScrollView, View, Image, Text, Button } from 'react-native';
+import { StyleSheet, ScrollView, View, Image, Text } from 'react-native';
 import { TouchableHighlight, TouchableOpacity } from 'react-native-gesture-handler';
 import { LinearGradient } from 'expo-linear-gradient';
 import { AntDesign } from '@expo/vector-icons'; 
@@ -17,15 +17,11 @@ let currentPolaroidIndex = 0
 export default class Home extends Component {
     state = {
         photo: null,
-        animComplete: false,
         uniqueValue: 0,
-        currentPolaroidIndex: 0
     }
-    
-    completedAnimation = () => {
-        this.setState({
-            animComplete: true
-        })
+
+    async componentDidUpdate() {
+        this.setPhoto()
     }
 
     nextPolaroid = () => {
@@ -37,12 +33,6 @@ export default class Home extends Component {
         this.setUniquenessValue()
     }
     
-    setUniquenessValue = () => {
-        this.setState({
-            uniqueValue: this.state.uniqueValue + 1
-        })
-    }
-
     backPolaroid = () => {
         if (currentPolaroidIndex === 0){
             currentPolaroidIndex = 2
@@ -51,11 +41,17 @@ export default class Home extends Component {
         }
         this.setUniquenessValue()
     }
-
+    
     displayCurrentPolaroid = () => {
         return polaroids[currentPolaroidIndex]
     }
 
+    setUniquenessValue = () => {
+        this.setState({
+            uniqueValue: this.state.uniqueValue + 1
+        })
+    }
+    
     navigate = () => {
         const {userInfo} = this.props.route.params;
         const { navigation } = this.props;
@@ -64,7 +60,6 @@ export default class Home extends Component {
         } else {
             navigation.navigate('LoginSignup')
         }
-
     }
 
     setPhoto = () => {
@@ -73,35 +68,14 @@ export default class Home extends Component {
         })
     }
 
-    async componentDidUpdate() {
-        this.setPhoto()
-    }  
-
-    displaySaveButton = () => {
-        if (this.state.animComplete) {
-            return (
-                <TouchableHighlight
-                    navigation={navigation}
-                    onPress={ () => navigation.navigate('LoginSignup')}>
-                    <LinearGradient
-                        colors={['#F04733', '#F88517', '#F7B227', '#85BC3D','#3188C2']}
-                        style={styles.button}>
-                        <Text style={styles.buttonText}>Save</Text>
-                    </LinearGradient>
-                </TouchableHighlight>
-            );
-        };
-    }
-
     render() {
         const { navigation, route } = this.props
-        const { currentPolaroidIndex } = this.state
         return (
             <View style={styles.main}>
                 <ScrollView>
                     <View style={styles.cameraContainer}>
                         <View style={{flexDirection: 'row', alignItems: 'center', zIndex: 500}}>
-                            <TouchableOpacity  onPress={() => this.backPolaroid()} >
+                            <TouchableOpacity onPress={() => this.backPolaroid()} >
                                 <AntDesign name="left" size={24} color="black" />
                             </TouchableOpacity>
                             <View style={styles.cameraBody}>
@@ -109,14 +83,14 @@ export default class Home extends Component {
                                     <Image style={{ width: '100%', height: '100%', resizeMode: "contain", zIndex: 500}} source={this.displayCurrentPolaroid()}></Image>
                                 </View>
                             </View>
-                            <TouchableOpacity style={styles.cameraButtons} onPress={() => this.nextPolaroid()} >
+                            <TouchableOpacity onPress={() => this.nextPolaroid()} >
                                 <AntDesign name="right" size={24} color="black" />
                             </TouchableOpacity>
                         </View>
                         <View>
                             <TransitionDownView style={styles.photoPaper}>
                                 <View style={styles.photoBase}></View>
-                                <FadeInView style={styles.photo} completedAnimation={this.completedAnimation}>
+                                <FadeInView style={styles.photo}>
                                     <Image style={styles.image} source={{ uri: route.params.photo.uri }} ></Image>
                                 </FadeInView>
                             </TransitionDownView>
@@ -144,17 +118,6 @@ export default class Home extends Component {
                         </View>
                     </TouchableHighlight>
                 </View>
-                {/* <FadeInView>
-                    <TouchableHighlight
-                        navigation={navigation}
-                        onPress={this.navigate}>
-                        <LinearGradient
-                            colors={['#F04733', '#F88517', '#F7B227', '#85BC3D','#3188C2']}
-                            style={styles.button}>
-                            <Text style={styles.buttonText}>Save</Text>
-                        </LinearGradient>
-                    </TouchableHighlight>
-                </FadeInView> */}
             </View>
         );
     }
@@ -179,12 +142,6 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgb(210,220,230)',
         height: 260,
     },
-    cameraButtons: {
-        alignSelf: 'flex-end',
-        alignItems: 'center',
-        backgroundColor: 'transparent',
-    },
-
     photoPaper: {
         position: 'absolute',
         top: -275,
@@ -212,18 +169,11 @@ const styles = StyleSheet.create({
         top: 10,
         left: 10,
     },
+
     image: {
         width: '100%', 
         height: '100%',
         resizeMode: "cover"
-    },
-
-    button: {
-        width: 180,
-        marginBottom: 15,
-        padding: 15, 
-        alignItems: 'center', 
-        borderRadius: 5,
     },
 
     buttonText: {
@@ -237,20 +187,10 @@ const styles = StyleSheet.create({
         backgroundColor: 'red',
         width: '100%',
         height: 50,
-        // flex: 1,
         flexDirection: 'row',
         justifyContent: 'space-between'
-        // alignItems: 'space-between'
 
-    },
-
-    // polaroidBackArrow: {
-    //     zIndex: 1000,
-    //     position: 'absolute',
-    //     top: 0,
-    //     left: 0,
-    // },
-
+    }
 });
 
 
