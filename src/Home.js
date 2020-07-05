@@ -127,31 +127,33 @@ export default class Home extends Component {
                         </View>
                     </View>
                 </ScrollView>
-
-                <View style={styles.navbar} >
-                    <TouchableHighlight
-                        style={styles.navButton}  
-                        onPress={() => navigation.navigate('Viewfinder')}>
-                        <View>
-                            <Text>Retake Photo</Text>
-                        </View>
-                    </TouchableHighlight>
-                    <TouchableHighlight 
-                        style={styles.navButton}
-                        onPress={this.saveToCameraRoll}>
-                        <View>
-                            <Text>Save to Camera Roll</Text>
-                        </View>
-                    </TouchableHighlight>
-                    <TouchableHighlight
-                        style={styles.navButton}
-                        navigation={navigation}
-                        onPress={this.navigate}>
-                        <View>
-                            <Text>Save to Polaroll</Text>
-                        </View>
-                    </TouchableHighlight>
-                </View>
+                    <LinearGradient
+                        style={styles.navbar}
+                        colors={['white', 'rgb(210,220,230)' ]}
+                        >
+                        <TouchableHighlight
+                            style={styles.navButton}  
+                            onPress={() => navigation.navigate('Viewfinder')}>
+                            <View>
+                                <Text style={styles.navButtonText}>Retake Photo</Text>
+                            </View>
+                        </TouchableHighlight>
+                        <TouchableHighlight 
+                            style={styles.navButton}
+                            onPress={this.saveToCameraRoll}>
+                            <View>
+                                <Text style={styles.navButtonText}>Save to Camera Roll</Text>
+                            </View>
+                        </TouchableHighlight>
+                        <TouchableHighlight
+                            style={styles.navButton}
+                            navigation={navigation}
+                            onPress={this.navigate}>
+                            <View>
+                                <Text style={styles.navButtonText}>Save to Polaroll</Text>
+                            </View>
+                        </TouchableHighlight>
+                    </LinearGradient>
             </View>
         );
     }
@@ -218,15 +220,38 @@ const styles = StyleSheet.create({
     },
 
     navbar: {
-        backgroundColor: 'red',
+        backgroundColor: 'transparent',
         width: '100%',
         height: 50,
         flexDirection: 'row',
-        justifyContent: 'space-between'
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingLeft: 5,
+        paddingRight: 5,
     },
 
     navButton: {
-        textDecorationLine: 'underline'
+        // backgroundColor: '#F04733',
+        padding: 3,
+        paddingVertical: 10,
+        borderStyle: 'solid',
+        borderWidth: 1,
+        borderBottomColor: '#F04733',
+        borderRightColor: '#ECA827',
+        borderTopColor: '#85BC3D',
+        borderLeftColor: '#3490CC',
+
+        // height: 25,
+        alignSelf: 'center',
+        flexWrap: 'wrap',
+
+    },
+
+    navButtonText: {
+        // position: 'absolute',
+        // top: 20,
+        // width: '100%',
+        fontFamily: 'HelveticaNeue-Bold'
     },
 
 });
