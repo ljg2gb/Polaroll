@@ -11,7 +11,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "splash": {
-      "image": "./assets/polaroidOneStep.png",
+      "image": "./assets/polarollGif.gif",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

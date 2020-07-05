@@ -132,6 +132,7 @@ export default class Home extends Component {
                         colors={['white', 'rgb(210,220,230)' ]}
                         >
                         <TouchableHighlight
+                            underlayColor='rgb(210,220,230)'
                             style={styles.navButton}  
                             onPress={() => navigation.navigate('Viewfinder')}>
                             <View>
@@ -139,6 +140,7 @@ export default class Home extends Component {
                             </View>
                         </TouchableHighlight>
                         <TouchableHighlight 
+                            underlayColor='rgb(210,220,230)'
                             style={styles.navButton}
                             onPress={this.saveToCameraRoll}>
                             <View>
@@ -146,6 +148,7 @@ export default class Home extends Component {
                             </View>
                         </TouchableHighlight>
                         <TouchableHighlight
+                            underlayColor='rgb(210,220,230)'
                             style={styles.navButton}
                             navigation={navigation}
                             onPress={this.navigate}>

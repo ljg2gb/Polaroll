@@ -151,6 +151,7 @@ export default class Viewfinder extends Component {
                             </View>
                         </Camera>
                         <TouchableHighlight
+                            underlayColor='none'
                             navigation={navigation}
                             onPress={this.navigateTo}>
                             <LinearGradient
@@ -172,7 +173,7 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         height: '100%',
     },
-
+    
     viewfinder: {
         flex: 1,
         position: 'absolute',
