@@ -12,6 +12,7 @@ import Viewfinder from './src/Viewfinder'
 import UploadPhotoToFirebase from './src/Viewfinder'
 
 const Stack = createStackNavigator();
+console.disableYellowBox = true
 
 export default function App() {
 
