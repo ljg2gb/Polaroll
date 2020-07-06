@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
+import { View, Text, Button } from 'react-native'
 import { TextInput } from 'react-native-gesture-handler'
+import * as SecureStore from 'expo-secure-store';
 
 import { globalStyles } from '../styles/global'
 
@@ -21,23 +22,40 @@ export default class SignupForm extends Component {
             headers: {
                 "Content-Type": "Application/json"
             },
-            body: JSON.stringify(this.state)
+            body: JSON.stringify({user: this.state})
         })
-            .then(response => console.log(response))
-            // .then(response => {
-            //     if (response.status === 200) {
-            //     this.setState({error: ""})
-            //     return response.json() 
-            //     } else if (response.status === 401) {
-            //         throw new Error("Something is wrong with the username or password")
-            //     }
-            // }) 
-            // .then(result => this.handleResult(result))
-            // // .catch(error => displayError(error.message))
+            .then(response => {
+                if (response.status === 200) {
+                    this.setState({error: ""})
+                    return response.json() 
+                } else if (response.status === 401) {
+                    throw new Error("Something is wrong with the username or password")
+                }
+            }) 
+            .then(result => this.handleResult(result))
+            .catch(error => this.displayError(error.message))
     }
 
-    navigateToProfile = () => {
-        this.props.navigation.navigate('Profile')
+    displayError = (errorMessage) => {
+        alert(errorMessage)
+    }
+
+    handleResult = (result) => {
+        this.SetInSecureStore(result)
+        this.navigateToProfile(result)
+    }
+
+    SetInSecureStore = async ({token, user_id, user_name}) => {
+        const credentials = { token, user_id, user_name };
+        try {
+            await SecureStore.setItemAsync( 'userInfo', JSON.stringify(credentials) );
+        } catch (e) {
+          console.log(e);
+        }
+    };
+    
+    navigateToProfile = (userInfo) => {
+        this.props.navigation.navigate('Profile', { userInfo })
     }
 
     render() {
@@ -53,21 +71,3 @@ export default class SignupForm extends Component {
         )
     }
 }
-
-const styles = StyleSheet.create({
-    body: {
-        padding: 20,
-        flex: 1
-    },
-    h1: {
-        textAlign: "center",
-        fontSize: 30,
-    },
-    input: {
-        borderWidth: 2, 
-        borderColor: 'skyblue', 
-        margin: 10,
-        padding: 5,
-        width: 300
-    }
-})

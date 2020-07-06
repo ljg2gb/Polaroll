@@ -9,9 +9,9 @@
     ],
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
+    "icon": "./assets/icon_polaroll_app_store.png",
     "splash": {
-      "image": "./assets/polarollGif.gif",
+      "image": "./assets/splash_screen_polaroll.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },

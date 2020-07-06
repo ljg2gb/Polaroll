@@ -1,7 +1,8 @@
-import React, { Component } from 'react'
-import { View, Text, StyleSheet, Button } from 'react-native'
-import { TextInput } from 'react-native-gesture-handler'
+import React, { Component } from 'react';
+import { View, Text, Button } from 'react-native';
+import { TextInput } from 'react-native-gesture-handler';
 import * as SecureStore from 'expo-secure-store';
+
 import { globalStyles } from '../styles/global'
 
 const loginURL = "https://polaroll.herokuapp.com/login"
@@ -23,8 +24,8 @@ export default class LoginForm extends Component {
         })
             .then(response => {
                 if (response.status === 200) {
-                this.setState({error: ""})
-                return response.json() 
+                    this.setState({error: ""})
+                    return response.json() 
                 } else if (response.status === 401) {
                     throw new Error("Something is wrong with the username or password")
                 }
@@ -34,7 +35,7 @@ export default class LoginForm extends Component {
     }
 
     displayError = (errorMessage) => {
-        return errorMessage ? <Text>{errorMessage}</Text> : null
+        alert(errorMessage)
     }
 
     handleResult = (result) => {
@@ -62,8 +63,6 @@ export default class LoginForm extends Component {
                 <TextInput style={globalStyles.input} placeholder="username" onChangeText={(text) => {this.setState({username: text} )}}/>
                 <TextInput style={globalStyles.input} placeholder="password" secureTextEntry={true} onChangeText={(text) => {this.setState({password: text} )}}/>
                 <Button title="submit" onPress={this.submit}/>
-                <Button title="show credentials" onPress={this.read}/>
-                {/* {this.displayError} */}
             </View>
         )
     }

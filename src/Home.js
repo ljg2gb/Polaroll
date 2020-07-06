@@ -129,7 +129,7 @@ export default class Home extends Component {
                 </ScrollView>
                     <LinearGradient
                         style={styles.navbar}
-                        colors={['white', 'rgb(210,220,230)' ]}
+                        colors={['rgb(220,230,240)', 'rgb(220,230,240)']}
                         >
                         <TouchableHighlight
                             underlayColor='rgb(210,220,230)'
@@ -225,7 +225,7 @@ const styles = StyleSheet.create({
     navbar: {
         backgroundColor: 'transparent',
         width: '100%',
-        height: 50,
+        height: 60,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
@@ -234,11 +234,11 @@ const styles = StyleSheet.create({
     },
 
     navButton: {
-        // backgroundColor: '#F04733',
-        padding: 3,
+        backgroundColor: 'white',
+        padding: 2,
         paddingVertical: 10,
         borderStyle: 'solid',
-        borderWidth: 1,
+        borderWidth: 2,
         borderBottomColor: '#F04733',
         borderRightColor: '#ECA827',
         borderTopColor: '#85BC3D',

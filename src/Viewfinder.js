@@ -20,14 +20,13 @@ export default class Viewfinder extends Component {
         buttonText: 'Login or Signup',
         welcomeMessage: 'Welcome to',
         userInfo: {},
+        triggerRefresh: false
     }
 
     async componentDidMount() {
-        // this.setState({ 
-        //     photo: null 
-        // })
+        this.checkForUserInfo()
+        // this.getFromSecureStore()
         this.getPermissionAsync()
-        this.getFromSecureStore()
     }
     
     componentDidUpdate() {
@@ -36,7 +35,16 @@ export default class Viewfinder extends Component {
         };
     }
 
+    checkForUserInfo = () => {
+        if(!this.props.route.params.userInfo) {
+            this.getFromSecureStore()
+        }
+    }
+
     getFromSecureStore = async () => {
+        this.setState({
+            triggerRefresh: !triggerRefresh
+        })
         try {
             const credentials = await SecureStore.getItemAsync('userInfo');
             if (credentials) {
@@ -150,16 +158,24 @@ export default class Viewfinder extends Component {
                                 </TouchableOpacity>
                             </View>
                         </Camera>
+                    <LinearGradient
+                        style={styles.navbar}
+                        colors={['black', 'black']}
+                    >
                         <TouchableHighlight
                             underlayColor='none'
                             navigation={navigation}
-                            onPress={this.navigateTo}>
-                            <LinearGradient
+                            onPress={this.navigateTo}
+                            style={styles.navButton}>
+                                <View>
+                                    <Text style={styles.navButtonText}>{buttonText}</Text>
+                                </View>
+                            {/* <LinearGradient
                                 colors={['#F04733', '#F88517', '#F7B227', '#85BC3D','#3188C2']}
-                                style={styles.button}>
-                                <Text style={styles.buttonText}>{buttonText}</Text>
-                            </LinearGradient>
+                                style={styles.button}> */}
+                            {/* </LinearGradient> */}
                         </TouchableHighlight>
+                    </LinearGradient>
                 </View>
             );
         }
@@ -173,13 +189,16 @@ const styles = StyleSheet.create({
         backgroundColor: 'black',
         height: '100%',
     },
-    
+
     viewfinder: {
         flex: 1,
         position: 'absolute',
         top: 130,
         width: 350,
         height: 350,
+        borderStyle: "solid",
+        borderWidth: 4,
+        borderColor: 'white'
     },
 
     iconContainer: {
@@ -225,7 +244,40 @@ const styles = StyleSheet.create({
         marginTop: 20,
         textAlign: 'center'
 
-    }
+    },
+    navbar: {
+        backgroundColor: 'transparent',
+        width: '100%',
+        height: 50,
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingLeft: 5,
+        paddingRight: 5,
+    },
+
+    navButton: {
+        // backgroundColor: '#F04733',
+        padding: 3,
+        paddingVertical: 10,
+        borderStyle: 'solid',
+        borderWidth: 1,
+        borderBottomColor: '#F04733',
+        borderRightColor: '#ECA827',
+        borderTopColor: '#85BC3D',
+        borderLeftColor: '#3490CC',
+        backgroundColor: 'white',
+        alignSelf: 'center',
+        flexWrap: 'wrap',
+
+    },
+
+    navButtonText: {
+        // position: 'absolute',
+        // top: 20,
+        // width: '100%',
+        fontFamily: 'HelveticaNeue-Bold'
+    },
 });
 
 

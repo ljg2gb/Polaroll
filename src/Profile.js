@@ -1,6 +1,5 @@
 import React from 'react'
-import {View, StyleSheet} from 'react-native'
-import * as SecureStore from 'expo-secure-store';
+import { View, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
 import ProfileHeader from './ProfileHeader'

@@ -6,6 +6,7 @@ import { TouchableOpacity, TouchableHighlight } from 'react-native-gesture-handl
 export default class ProfileHeader extends Component {
     state = {
         name: '',
+        userInfo: {},
     }
 
     componentDidMount() {
@@ -18,6 +19,7 @@ export default class ProfileHeader extends Component {
             if (credentials) {
                 const userInfo = JSON.parse(credentials);
                 this.setState({
+                    userInfo: userInfo,
                     name: userInfo.user_name
                 })
             }
@@ -26,10 +28,14 @@ export default class ProfileHeader extends Component {
         }
     }
 
-    handleClick = () => {
+    handleLogout = () => {
         this.logout()
         this.props.navigation.navigate('Viewfinder')
-        // navigate back to profile
+    }
+
+    handleTakePhoto = () => {
+        const { userInfo } = this.state
+        this.props.navigation.navigate('Viewfinder', { userInfo })
     }
 
     logout = async () => {
@@ -44,8 +50,13 @@ export default class ProfileHeader extends Component {
         return(
             <View style={styles.welcomeContainer}>
                 <Text style={styles.welcome}>{this.state.name}</Text>
+
+                <TouchableOpacity onPress={this.handleLogout}>
+                    <Text style={styles.logout}>Logout</Text>
+                </TouchableOpacity>
+
                 <TouchableOpacity onPress={this.handleClick}>
-                    <Text style={styles.logout} >Logout</Text>
+                    <Text style={styles.logout}>Retake Photo</Text>
                 </TouchableOpacity>
             </View>
         )
