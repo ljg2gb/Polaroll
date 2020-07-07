@@ -6,7 +6,6 @@ import { View, Button, Alert, StyleSheet, Image, Text } from 'react-native';
 export default class SaveToFirebase extends Component {
     state = {
         isLoaded: true,
-        isURL: false,
         url: '',
     }
 
@@ -15,8 +14,7 @@ export default class SaveToFirebase extends Component {
         this.setState({isLoaded: false})
         this.uploadImage(photo.uri, "otro")
             .then(() => {
-
-                this.setState({isLoaded: true, isUrl: true})
+                this.setState({isLoaded: true})
                 Alert.alert("Success")
             })
             .catch((error) => {
@@ -44,55 +42,12 @@ export default class SaveToFirebase extends Component {
         }
     }
 
-    // downloadURL = () => {
-    //     storage
-    //     .ref("images")
-    //     .child(image.name)
-    //     .getDownloadURL()
-    //     .then(url => {
-    //         this.setState({url: url, isUrl: true, isLoaded: true})
-    //         console.log("Success!")
-            
-    //     //    this.props.addImage(this.state.url)
-    // }
-
-    // handleUpload = async () => {
-    //     const blob = this.generateBlob()
-    //     console.log("blob2", blob)
-    //     const photoName = "another-test-image"
-    //     this.setState({isLoaded: false})
-
-    //     const uploadTask = storage.ref(`images/${photoName}`).put(blob);
-    //     console.log(uploadTask) 
-    //     uploadTask.on(
-    //     //    "state_changed",
-    //     //    snapshot => {},
-    //        error => {
-    //            console.log("whoops", error);
-    //        },
-    //        () => {
-    //            storage
-    //            .ref("images")
-    //            .child(image.name)
-    //            .getDownloadURL()
-    //            .then(url => {
-    //                this.setState({url: url, isUrl: true, isLoaded: true})
-    //                console.log("Success!")
-                   
-    //             //    this.props.addImage(this.state.url)
-    //            })
-    //       }
-    //     )
-        
-    // }
-
     render() {
         const { isLoaded, url } = this.state
         return( 
             <View style={styles.container}>
                 <Button title='Upload to Firebase' onPress={this.onChooseImagePress}/>
                 {!isLoaded ? <Text>Loading!</Text> : null}
-                {url ? <Image source={this.state.url}></Image> : null }
             </View>
         )
     } 
