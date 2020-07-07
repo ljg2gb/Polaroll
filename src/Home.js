@@ -8,22 +8,9 @@ import FilmPrint from './FilmPrint'
 import NavBarHome from './NavBarHome'
 
 export default class Home extends Component {
-    state = {
-        photo: null,
-    }
     
     componentDidMount() {
         this.getPermissionAsync()
-    }
-    
-    async componentDidUpdate() {
-        this.setPhoto()
-    }
-    
-    setPhoto = () => {
-        this.setState({
-            photo: this.props.route.params.photo
-        })
     }
 
     getPermissionAsync = async () => {
@@ -38,7 +25,7 @@ export default class Home extends Component {
     }
     
     saveToCameraRoll = () => {
-        const { uri } = this.state.photo
+        const { uri } = this.props.route.params.photo
         if (uri) {
             MediaLibrary.saveToLibraryAsync(uri)
             alert('Saved to Camera Roll!')
@@ -58,7 +45,7 @@ export default class Home extends Component {
     }
 
     uploadToFirebase = () => {
-        const { photo } = this.state
+        const { photo } = this.props.route.params
         const { navigation } = this.props
         navigation.navigate('SaveToFirebase', { photo })
     }
@@ -76,7 +63,13 @@ export default class Home extends Component {
                     </View>
                 </ScrollView>
 
-                <NavBarHome navigation={navigation} uploadToFirebase={this.uploadToFirebase} navigate={this.navigate} saveToCameraRoll={this.saveToCameraRoll}/>
+                <NavBarHome 
+                    navigation={navigation} 
+                    uploadToFirebase={this.uploadToFirebase} 
+                    navigate={this.navigate} 
+                    saveToCameraRoll={this.saveToCameraRoll}
+                />
+
             </View>
         );
     }
