@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { View, Text, Button } from 'react-native'
-import { TextInput } from 'react-native-gesture-handler'
+import { View, Text } from 'react-native'
+import { TextInput, TouchableHighlight } from 'react-native-gesture-handler'
 import * as SecureStore from 'expo-secure-store';
 
 import { globalStyles } from '../styles/global'
@@ -66,7 +66,9 @@ export default class SignupForm extends Component {
                 <TextInput style={globalStyles.input} placeholder="username" onChangeText={(text) => {this.setState({username: text})}}/>
                 <TextInput style={globalStyles.input} placeholder="email" onChangeText={(text) => {this.setState({email: text})}}/>
                 <TextInput style={globalStyles.input} placeholder="password" secureTextEntry={true} onChangeText={(text) => {this.setState({password: text})}}/>
-                <Button title="submit" onPress={this.submit}/>
+                <TouchableHighlight onPress={this.submit} underlayColor='rgb(210,220,230)'>
+                    <Text style={globalStyles.button}>Submit</Text>
+                </TouchableHighlight>
             </View>
         )
     }

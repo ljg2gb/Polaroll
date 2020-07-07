@@ -1,31 +1,40 @@
-import React from 'react'
-import { View, StyleSheet, ScrollView, Dimensions } from 'react-native'
+import React, { Component } from 'react'
+import { View, StyleSheet, ScrollView, Button, Text } from 'react-native'
 
 import LoginForm from './LoginForm'
 import SignupForm from './SignupForm'
-import Fonts from './Fonts'
+import { render } from 'react-dom'
+import { TouchableHighlight } from 'react-native-gesture-handler'
 
-export default function LoginSignup({navigation}) {
+export default class LoginSignup extends Component {
+    state = {
+        isLogin: true
+    } 
 
-    return ( 
-        <View style={styles.body}>
-            <View style={styles.screen}>
+    toggleForms = () => {
+        this.setState({ isLogin: !this.state.isLogin})
+    }
+
+    render() {
+        const { isLogin } = this.state
+        const { navigation } = this.props
+        return( 
+            <View style={styles.body}>
                 <ScrollView>
-                    <LoginForm navigation={navigation}></LoginForm>
-                    <SignupForm navigation={navigation}></SignupForm>
-                    <Fonts></Fonts>
-                    <View style={styles.workaround}></View>
+                <Button onPress={this.toggleForms} title={isLogin ? "Need to Signup?" : "Need to Login?" } ></Button>
+                    <View style={styles.forms}>
+                        {isLogin ? <LoginForm navigation={navigation}></LoginForm> : <SignupForm navigation={navigation}></SignupForm>}
+                    </View>
                 </ScrollView>
+                {/* <View style={styles.workaround}></View> */}
             </View>
-        </View>
-    )
+        )
+    }
 }
 
-let screenHeight = Dimensions.get('window').height;
 const styles = StyleSheet.create({
     body: {
-        paddingTop: 100,
-        flex: 1,
+        // flex: 1,
         flexDirection: 'column',
         alignItems: "center",
         justifyContent: "center"
@@ -35,7 +44,8 @@ const styles = StyleSheet.create({
         height: 400
     },
 
-    screen: {
-        height: screenHeight
-    }
+    forms: {
+        flex: 1,
+        // height: 470,
+    },
 })
