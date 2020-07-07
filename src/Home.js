@@ -8,6 +8,7 @@ import * as MediaLibrary from 'expo-media-library';
 
 import FadeInView from './FadeInView'
 import TransitionDownView from './TransitionDownView'
+import NavBarHome from './NavBarHome'
 import polaroid600 from '../assets/polaroid600.png'
 import polroidOneStep from '../assets/polaroidOneStep.png'
 import polaroidSX70 from '../assets/polaroidSX70.png'
@@ -20,15 +21,21 @@ export default class Home extends Component {
         photo: null,
         uniqueValue: 0
     }
-
+    
     componentDidMount() {
         this.getPermissionAsync()
     }
-
+    
     async componentDidUpdate() {
         this.setPhoto()
     }
-
+    
+    setPhoto = () => {
+        this.setState({
+            photo: this.props.route.params.photo
+        })
+    }
+    
     nextPolaroid = () => {
         if (currentPolaroidIndex === 2){
             currentPolaroidIndex = 0
@@ -67,19 +74,15 @@ export default class Home extends Component {
         const { status } = await Permissions.askAsync(Permissions.CAMERA);
         this.setState({ hasPermission: status === 'granted' });
     }
-
+    
     saveToCameraRoll = () => {
         const { uri } = this.state.photo
         if (uri) {
             MediaLibrary.saveToLibraryAsync(uri)
-            this.successfulSaveMessage()
+            alert('Saved to Camera Roll!')
         } else {
             alert('No photo selected!')
         }
-    }
-
-    successfulSaveMessage = () => {
-        alert('Saved to Camera Roll!');
     }
 
     navigate = () => {
@@ -98,11 +101,6 @@ export default class Home extends Component {
         navigation.navigate('SaveToFirebase', { photo })
     }
  
-    setPhoto = () => {
-        this.setState({
-            photo: this.props.route.params.photo
-        })
-    }
 
     render() {
         const { navigation, route } = this.props
@@ -133,37 +131,7 @@ export default class Home extends Component {
                         </View>
                     </View>
                 </ScrollView>
-                    <LinearGradient
-                        style={styles.navbar}
-                        colors={['rgb(220,230,240)', 'rgb(220,230,240)']}
-                        >
-                        <TouchableHighlight
-                            underlayColor='rgb(210,220,230)'
-                            style={styles.navButton}  
-                            onPress={() => navigation.navigate('Viewfinder')}>
-                            <View>
-                                <Text style={styles.navButtonText}>Retake Photo</Text>
-                            </View>
-                        </TouchableHighlight>
-                        <TouchableHighlight 
-                            underlayColor='rgb(210,220,230)'
-                            style={styles.navButton}
-                            onPress={this.saveToCameraRoll}>
-                            <View>
-                                <Text style={styles.navButtonText}>Save to Camera Roll</Text>
-                            </View>
-                        </TouchableHighlight>
-                        <TouchableHighlight
-                            underlayColor='rgb(210,220,230)'
-                            style={styles.navButton}
-                            navigation={navigation}
-                            // onPress={this.navigate}
-                            onPress={this.uploadToFirebase}>
-                            <View>
-                                <Text style={styles.navButtonText}>Save to Polaroll</Text>
-                            </View>
-                        </TouchableHighlight>
-                    </LinearGradient>
+                <NavBarHome navigation={navigation} uploadToFirebase={this.uploadToFirebase} navigate={this.navigate} saveToCameraRoll={this.saveToCameraRoll}></NavBarHome>
             </View>
         );
     }
@@ -227,41 +195,6 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontFamily: "HelveticaNeue-Bold",
         color: '#fff',
-    },
-
-    navbar: {
-        backgroundColor: 'transparent',
-        width: '100%',
-        height: 60,
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingLeft: 5,
-        paddingRight: 5,
-    },
-
-    navButton: {
-        backgroundColor: 'white',
-        padding: 2,
-        paddingVertical: 10,
-        borderStyle: 'solid',
-        borderWidth: 2,
-        borderBottomColor: '#F04733',
-        borderRightColor: '#ECA827',
-        borderTopColor: '#85BC3D',
-        borderLeftColor: '#3490CC',
-
-        // height: 25,
-        alignSelf: 'center',
-        flexWrap: 'wrap',
-
-    },
-
-    navButtonText: {
-        // position: 'absolute',
-        // top: 20,
-        // width: '100%',
-        fontFamily: 'HelveticaNeue-Bold'
     },
 
 });
