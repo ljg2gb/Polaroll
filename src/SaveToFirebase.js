@@ -9,7 +9,7 @@ export default class SaveToFirebase extends Component {
 
     onChooseImagePress = async () => {
         const { photo } = this.props.route.params
-        this.uploadImage(photo.uri, "test-image")
+        this.uploadImage(photo.uri, "new-test-image")
             .then(() => {
                 Alert.alert("Success")
             })
@@ -23,17 +23,12 @@ export default class SaveToFirebase extends Component {
             const response = await fetch(uri);
             const blob = await response.blob();
             const storageRef = firebase.storage().ref();
-            var photoRef = storageRef.child('../assets/icon_polaroll_google.png')
-            var photoImagesRef = storageRef.child('images/../assets/icon_polaroll_google.png')
+            var photoRef = storageRef.child('images/'+ imageName);
             return photoRef.put(blob)
-            // console.log("firebase", photoRef)
+            console.log("firebase", photoRef)
         } catch (error) {
-
             console.log("whoops",error.message)
         }
-        
-        // var ref = firebase.storage().ref().child("images/test-image")
-        // console.log("firebase", storageRef)
     }
 
     render() {
