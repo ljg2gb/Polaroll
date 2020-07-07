@@ -10,6 +10,7 @@ import PedometerComponent from './src/PedometerComponent'
 import Profile from './src/Profile'
 import Viewfinder from './src/Viewfinder'
 import UploadPhotoToFirebase from './src/Viewfinder'
+import SaveToFirebase from './src/SaveToFirebase'
 
 const Stack = createStackNavigator();
 console.disableYellowBox = true
@@ -26,6 +27,7 @@ export default function App() {
         <Stack.Screen name={"UploadPhotoToFirebase"} component={UploadPhotoToFirebase} />
         <Stack.Screen name={"AccelerometerComponent"} component={AccelerometerComponent} />
         <Stack.Screen name={"PedometerComponent"} component={PedometerComponent} />
+        <Stack.Screen name={"SaveToFirebase"} component={SaveToFirebase} />
       </Stack.Navigator>
     </NavigationContainer>
   );

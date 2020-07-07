@@ -33,7 +33,7 @@ export default class ProfileHeader extends Component {
         this.props.navigation.navigate('Viewfinder')
     }
 
-    handleTakePhoto = () => {
+    handleRetake = () => {
         const { userInfo } = this.state
         this.props.navigation.navigate('Viewfinder', { userInfo })
     }
@@ -55,7 +55,7 @@ export default class ProfileHeader extends Component {
                     <Text style={styles.logout}>Logout</Text>
                 </TouchableOpacity>
 
-                <TouchableOpacity onPress={this.handleClick}>
+                <TouchableOpacity onPress={this.handleRetake}>
                     <Text style={styles.logout}>Retake Photo</Text>
                 </TouchableOpacity>
             </View>

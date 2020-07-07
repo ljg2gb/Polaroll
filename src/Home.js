@@ -69,7 +69,7 @@ export default class Home extends Component {
     }
 
     saveToCameraRoll = () => {
-        const uri = this.state.photo.uri
+        const { uri } = this.state.photo
         if (uri) {
             MediaLibrary.saveToLibraryAsync(uri)
             this.successfulSaveMessage()
@@ -92,6 +92,12 @@ export default class Home extends Component {
         }
     }
 
+    uploadToFirebase = () => {
+        const { photo } = this.state
+        const { navigation } = this.props
+        navigation.navigate('SaveToFirebase', { photo })
+    }
+ 
     setPhoto = () => {
         this.setState({
             photo: this.props.route.params.photo
@@ -151,7 +157,8 @@ export default class Home extends Component {
                             underlayColor='rgb(210,220,230)'
                             style={styles.navButton}
                             navigation={navigation}
-                            onPress={this.navigate}>
+                            // onPress={this.navigate}
+                            onPress={this.uploadToFirebase}>
                             <View>
                                 <Text style={styles.navButtonText}>Save to Polaroll</Text>
                             </View>

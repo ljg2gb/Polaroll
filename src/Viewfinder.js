@@ -20,12 +20,12 @@ export default class Viewfinder extends Component {
         buttonText: 'Login or Signup',
         welcomeMessage: 'Welcome to',
         userInfo: {},
-        triggerRefresh: false
+        // triggerRefresh: false
     }
 
     async componentDidMount() {
-        this.checkForUserInfo()
-        // this.getFromSecureStore()
+        // this.checkForUserInfo()
+        this.getFromSecureStore()
         this.getPermissionAsync()
     }
     
@@ -36,15 +36,18 @@ export default class Viewfinder extends Component {
     }
 
     checkForUserInfo = () => {
-        if(!this.props.route.params.userInfo) {
+        if(this.props.route.params.userInfo) {
+            this.setDynamicContent(this.props.route.params.userInfo)
+        }
+        else {
             this.getFromSecureStore()
         }
     }
 
     getFromSecureStore = async () => {
-        this.setState({
-            triggerRefresh: !triggerRefresh
-        })
+        // this.setState({
+        //     triggerRefresh: !triggerRefresh
+        // })
         try {
             const credentials = await SecureStore.getItemAsync('userInfo');
             if (credentials) {
@@ -196,9 +199,6 @@ const styles = StyleSheet.create({
         top: 130,
         width: 350,
         height: 350,
-        borderStyle: "solid",
-        borderWidth: 4,
-        borderColor: 'white'
     },
 
     iconContainer: {
