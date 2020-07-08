@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
-export default class ViewfinderNav extends Component {
+export default function ViewfinderNav({ navigation, buttonText }) {
 
     navigateTo = () => {
         const { userInfo, navigation, photo } = this.props
@@ -13,22 +13,19 @@ export default class ViewfinderNav extends Component {
         }
     }
 
-    render() {
-        const { navigation, buttonText } = this.props
-        return (
-            <View style={styles.navbar}>
-                <TouchableHighlight
-                    underlayColor='none'
-                    navigation={navigation}
-                    onPress={this.navigateTo}
-                    style={styles.navButton}>
-                        <View>
-                            <Text style={styles.navButtonText}>{buttonText}</Text>
-                        </View>
-                </TouchableHighlight>
-            </View>
-        )
-    }
+    return (
+        <View style={styles.navbar}>
+            <TouchableHighlight
+                underlayColor='none'
+                navigation={navigation}
+                onPress={this.navigateTo}
+                style={styles.navButton}>
+                    <View>
+                        <Text style={styles.navButtonText}>{buttonText}</Text>
+                    </View>
+            </TouchableHighlight>
+        </View>
+    )
 }
 
 const styles = StyleSheet.create({
