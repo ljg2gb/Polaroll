@@ -18,8 +18,11 @@ export default class Profile extends Component {
     displaySavedPhotos = () => {
         const { photos } = this.props.route.params
         console.log(photos)
-        // // const photos = ["photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo"]
-        // return photos.map( photo => <SavedPhoto key={photo.id}/> )
+        return photos.forEach( photo => 
+            <Text>{photo.link}</Text>
+            // console.log("photo", photo.link)
+            // <SavedPhoto link={photo.link} key={photo.id}/> 
+        )
     }
 
     render() {

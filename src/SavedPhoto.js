@@ -1,12 +1,12 @@
 import React from 'react';
-import {View, StyleSheet} from "react-native";
+import {View, StyleSheet, Text, Image} from "react-native";
 
-export default function SavedPhoto() {
+export default function SavedPhoto({ link }) {
 
     return(
         <View style={styles.film}>
             <View style={styles.photo}>
-                
+                <Image style={styles.image} source={link}></Image>
             </View>
         </View>
     )
@@ -27,5 +27,11 @@ const styles = StyleSheet.create({
         position: 'absolute', 
         top: '5%', 
         left: '5%',
+    },
+
+    image: {
+        width: '100%', 
+        height: '100%', 
+        resizeMode: "contain"
     }
 })
