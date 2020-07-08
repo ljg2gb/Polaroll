@@ -4,29 +4,29 @@ import * as SecureStore from 'expo-secure-store';
 import { TouchableOpacity, TouchableHighlight } from 'react-native-gesture-handler';
 
 export default class ProfileHeader extends Component {
-    state = {
-        name: '',
-        userInfo: {},
-    }
+    // state = {
+    //     name: '',
+    //     userInfo: {},
+    // }
 
-    componentDidMount() {
-        this.getFromSecureStore()
-    }
+    // componentDidMount() {
+    //     this.getFromSecureStore()
+    // }
 
-    getFromSecureStore = async () => {
-        try {
-            const credentials = await SecureStore.getItemAsync('userInfo');
-            if (credentials) {
-                const userInfo = JSON.parse(credentials);
-                this.setState({
-                    userInfo: userInfo,
-                    name: userInfo.user_name
-                })
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    }
+    // getFromSecureStore = async () => {
+    //     try {
+    //         const credentials = await SecureStore.getItemAsync('userInfo');
+    //         if (credentials) {
+    //             const userInfo = JSON.parse(credentials);
+    //             this.setState({
+    //                 userInfo: userInfo,
+    //                 name: userInfo.user_name
+    //             })
+    //         }
+    //     } catch (e) {
+    //         console.log(e);
+    //     }
+    // }
 
     handleLogout = () => {
         this.logout()
@@ -49,7 +49,7 @@ export default class ProfileHeader extends Component {
     render() {
         return(
             <View style={styles.welcomeContainer}>
-                <Text style={styles.welcome}>{this.state.name}</Text>
+                <Text style={styles.welcome}>{this.props.name}</Text>
 
                 <TouchableOpacity onPress={this.handleLogout}>
                     <Text style={styles.logout}>Logout</Text>

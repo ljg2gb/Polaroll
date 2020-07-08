@@ -15,23 +15,24 @@ export default class LoginForm extends Component {
     }
 
     submit = () => {
-        fetch(loginURL, {
-            method: "POST",
-            headers: {
-                "Content-Type": "Application/json"
-            },
-            body: JSON.stringify(this.state)
-        })
-            .then(response => {
-                if (response.status === 200) {
-                    this.setState({error: ""})
-                    return response.json() 
-                } else if (response.status === 401) {
-                    throw new Error("Something is wrong with the username or password")
-                }
-            }) 
-            .then(result => this.handleResult(result))
-            .catch(error => this.displayError(error.message))
+        this.props.userLogin(this.state)
+        // fetch(loginURL, {
+        //     method: "POST",
+        //     headers: {
+        //         "Content-Type": "Application/json"
+        //     },
+        //     body: JSON.stringify(this.state)
+        // })
+        //     .then(response => {
+        //         if (response.status === 200) {
+        //             this.setState({error: ""})
+        //             return response.json() 
+        //         } else if (response.status === 401) {
+        //             throw new Error("Something is wrong with the username or password")
+        //         }
+        //     }) 
+        //     .then(result => this.handleResult(result))
+        //     .catch(error => this.displayError(error.message))
     }
 
     displayError = (errorMessage) => {
@@ -43,8 +44,8 @@ export default class LoginForm extends Component {
         this.navigateToProfile(result)
     }
     
-    SetInSecureStore = async ({token, user_id, user_name}) => {
-        const credentials = { token, user_id, user_name };
+    SetInSecureStore = async ({token, user_id, user_name, photos}) => {
+        const credentials = { token, user_id, user_name, photos };
         try {
             await SecureStore.setItemAsync( 'userInfo', JSON.stringify(credentials) );
         } catch (e) {

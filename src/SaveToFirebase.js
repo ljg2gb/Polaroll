@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-// import axios from 'axois'
 import { storage } from '../Firebase/config';
-import { View, Button, Alert, StyleSheet, Image, Text } from 'react-native';
+import { View, Button, Alert, StyleSheet, Text } from 'react-native';
 
 export default class SaveToFirebase extends Component {
     state = {
@@ -42,8 +41,10 @@ export default class SaveToFirebase extends Component {
         }
     }
 
+    
+
     render() {
-        const { isLoaded, url } = this.state
+        const { isLoaded } = this.state
         return( 
             <View style={styles.container}>
                 <Button title='Upload to Firebase' onPress={this.onChooseImagePress}/>

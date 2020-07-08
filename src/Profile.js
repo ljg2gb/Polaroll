@@ -1,27 +1,59 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { View, StyleSheet } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
+import * as SecureStore from 'expo-secure-store';
 
 import ProfileHeader from './ProfileHeader'
 import SavedPhoto from './SavedPhoto'
+import { render } from 'react-dom';
 
-export default function Profile({ navigation }) {
+export default class Profile extends Component {
 
-    const displaySavedPhotos = () => {
-        const photos = ["photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo"]
-        return photos.map( photo => <SavedPhoto/> )
+    state = {
+        name: '',
+        photos: {},
+        userInfo: {},
     }
 
-    return(
-        <View>
-            <ScrollView>
-                <ProfileHeader navigation={navigation}></ProfileHeader>
-                <View style={styles.photosContainer}>
-                    {displaySavedPhotos()}
-                </View>
-            </ScrollView>
-        </View>
-    )
+    componentDidMount() {
+        this.getFromSecureStore()
+    }
+
+    getFromSecureStore = async () => {
+        try {
+            const credentials = await SecureStore.getItemAsync('userInfo');
+            if (credentials) {
+                const userInfo = JSON.parse(credentials);
+                this.setState({
+                    userInfo: userInfo,
+                    photos: userInfo.photos,
+                    name: userInfo.user_name
+                })
+            }
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    displaySavedPhotos = () => {
+        console.log("photos", this.state.photos)
+        // const photos = ["photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo"]
+        // return userInfo.photos.map( photo => <SavedPhoto key={photo.id}/> )
+    }
+
+    render() {
+        const { navigation } = this.props
+        return(
+            <View>
+                <ScrollView>
+                    <ProfileHeader navigation={navigation} name={this.state.name} ></ProfileHeader>
+                    <View style={styles.photosContainer}>
+                        {this.displaySavedPhotos()}
+                    </View>
+                </ScrollView>
+            </View>
+        )
+    }
 }
 
 const styles = StyleSheet.create({
