@@ -9,6 +9,7 @@ import { FontAwesome, Ionicons, MaterialCommunityIcons } from '@expo/vector-icon
 
 import { globalStyles } from '../styles/global';
 import ViewfinderNav from './ViewfinderNav';
+import CameraButtons from './CameraButtons';
 
 export default class Viewfinder extends Component {
     state = {
@@ -131,7 +132,8 @@ export default class Viewfinder extends Component {
                     </View>
 
                     <Camera style={styles.viewfinder}  type={cameraType} ref={ ref => { this.camera = ref }} >
-                        <View style={styles.iconContainer}>
+                        <CameraButtons  pickImage={this.pickImage} takePicture={this.takePicture} handleCameraType={this.handleCameraType} ></CameraButtons>
+                        {/* <View style={styles.iconContainer}>
 
                             <TouchableOpacity style={styles.cameraButtons} onPress={()=>this.pickImage()} >
                                 <Ionicons name="ios-photos" style={styles.sideIcon} />
@@ -145,7 +147,7 @@ export default class Viewfinder extends Component {
                                 <MaterialCommunityIcons name="camera-switch" style={styles.sideIcon} />
                             </TouchableOpacity>
 
-                        </View>
+                        </View> */}
                     </Camera>
 
                     <ViewfinderNav 
@@ -177,49 +179,12 @@ const styles = StyleSheet.create({
         height: 350,
     },
 
-    iconContainer: {
-        flex: 1, 
-        flexDirection:"row", 
-        justifyContent:"space-between", 
-        margin: 20
-    },
-
-    sideIcon: { 
-        color: "#fff", 
-        fontSize: 30
-    },
-
-    circleButton: {
-        color: "red", 
-        fontSize: 40
-    },
-
-    cameraButtons: {
-        alignSelf: 'flex-end',
-        alignItems: 'center',
-        backgroundColor: 'transparent',
-    },
-
-    button: {
-        marginBottom: 35,
-        padding: 15, 
-        alignItems: 'center', 
-        borderRadius: 5,
-    },
-
-    buttonText: {
-        backgroundColor: 'transparent',
-        fontSize: 18,
-        fontFamily: "HelveticaNeue-Bold",
-        color: '#fff',
-    },
     intro: {
-        fontFamily: 'Courier',
+        fontFamily: 'HelveticaNeue-Medium',
         color: 'white',
         fontSize: 18,
         marginTop: 20,
         textAlign: 'center'
-
     },
     
 });
