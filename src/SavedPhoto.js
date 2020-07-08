@@ -5,7 +5,9 @@ export default function SavedPhoto() {
 
     return(
         <View style={styles.film}>
-            <View style={styles.photo}></View>
+            <View style={styles.photo}>
+                
+            </View>
         </View>
     )
 }

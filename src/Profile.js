@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import * as SecureStore from 'expo-secure-store';
 
@@ -15,38 +15,23 @@ export default class Profile extends Component {
         userInfo: {},
     }
 
-    componentDidMount() {
-        this.getFromSecureStore()
-    }
-
-    getFromSecureStore = async () => {
-        try {
-            const credentials = await SecureStore.getItemAsync('userInfo');
-            if (credentials) {
-                const userInfo = JSON.parse(credentials);
-                this.setState({
-                    userInfo: userInfo,
-                    photos: userInfo.photos,
-                    name: userInfo.user_name
-                })
-            }
-        } catch (e) {
-            console.log(e);
-        }
-    }
-
     displaySavedPhotos = () => {
-        console.log("photos", this.state.photos)
-        // const photos = ["photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo"]
-        // return userInfo.photos.map( photo => <SavedPhoto key={photo.id}/> )
+        const { photos } = this.props.route.params
+        console.log(photos)
+        // // const photos = ["photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo","photo"]
+        // return photos.map( photo => <SavedPhoto key={photo.id}/> )
     }
 
     render() {
         const { navigation } = this.props
+        const { token, name, id } = this.props.route.params
         return(
             <View>
                 <ScrollView>
-                    <ProfileHeader navigation={navigation} name={this.state.name} ></ProfileHeader>
+                    <Text>{token}</Text>
+                    <Text>{name}</Text>
+                    <Text>{id}</Text>
+                    <ProfileHeader navigation={navigation} name={name} ></ProfileHeader>
                     <View style={styles.photosContainer}>
                         {this.displaySavedPhotos()}
                     </View>

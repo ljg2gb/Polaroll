@@ -31,34 +31,25 @@ export default class LoginSignup extends Component {
                     throw new Error("Something is wrong with the username or password")
                 }
             })
-            // .then(response => console.log("response from fetch", response))
             .then(response => this.handleResult(response))
-            // .then(result => {
-            //     this.setState({
-            //         token: result.token,
-            //         name: result.user_name,
-            //         id: result.user_id,
-            //         photos: result.photos
-            //     });
-            //     console.log(this.state.token)
-            // })
-            // .catch(error => this.displayError(error.message))
+            .catch(error => this.displayError(error.message))
       }
 
-    // displayError = (errorMessage) => {
-    //     alert(errorMessage)
-    // }
+    displayError = (errorMessage) => {
+        alert(errorMessage)
+    }
 
     handleResult = (result) => {
+        console.log(result)
         this.setState({
             token: result.token,
             name: result.user_name,
             id: result.user_id,
-            photos: result.photo
+            photos: result.photos
         })
-        console.log("photos", this.state.token)
+        console.log("photos", this.state.photos)
         // this.SetInSecureStore(result)
-        // this.navigateToProfile(result)
+        this.navigateToProfile()
     }
     
     // SetInSecureStore = async ({token, user_id, user_name}) => {
@@ -70,9 +61,10 @@ export default class LoginSignup extends Component {
     //     }
     // };
     
-    // navigateToProfile = (userInfo) => {
-    //     this.props.navigation.navigate('Profile', { userInfo })
-    // }
+    navigateToProfile = () => {
+        const {token, name, id, photos} = this.state
+        this.props.navigation.navigate('Profile', { token, name, id, photos })
+    }
 
     toggleForms = () => {
         this.setState({ isLogin: !this.state.isLogin})
