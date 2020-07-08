@@ -1,16 +1,17 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { StyleSheet, View, Text } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
 
 export default function ViewfinderNav({ navigation, buttonText }) {
 
     navigateTo = () => {
-        const { userInfo, navigation, photo } = this.props
-        if (userInfo.token) {
-            navigation.navigate('Profile', { userInfo } )
-        } else {
-            navigation.navigate('LoginSignup', { photo } )
-        }
+        // if (userInfo.token) {
+        //     navigation.navigate('Profile', { userInfo } )
+        // } else {
+            navigation.navigate('LoginSignup'
+            // , { photo } 
+            )
+    //     }
     }
 
     return (

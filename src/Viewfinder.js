@@ -133,21 +133,6 @@ export default class Viewfinder extends Component {
 
                     <Camera style={styles.viewfinder}  type={cameraType} ref={ ref => { this.camera = ref }} >
                         <CameraButtons  pickImage={this.pickImage} takePicture={this.takePicture} handleCameraType={this.handleCameraType} ></CameraButtons>
-                        {/* <View style={styles.iconContainer}>
-
-                            <TouchableOpacity style={styles.cameraButtons} onPress={()=>this.pickImage()} >
-                                <Ionicons name="ios-photos" style={styles.sideIcon} />
-                            </TouchableOpacity>
-
-                            <TouchableOpacity style={styles.cameraButtons} onPress={this.takePicture} >
-                                <FontAwesome name="circle" style={styles.circleButton} />
-                            </TouchableOpacity>
-
-                            <TouchableOpacity style={styles.cameraButtons} onPress={()=>this.handleCameraType()} >
-                                <MaterialCommunityIcons name="camera-switch" style={styles.sideIcon} />
-                            </TouchableOpacity>
-
-                        </View> */}
                     </Camera>
 
                     <ViewfinderNav 
