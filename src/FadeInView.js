@@ -11,7 +11,7 @@ export default class FadeInView extends Component {
     Animated.timing(
       this.state.fadeAnim,
       {
-        delay: 4000,
+        delay: 9000,
         toValue: 1,
         duration: 8000,
       }
