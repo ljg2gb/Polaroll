@@ -2,21 +2,16 @@ import React, { Component } from 'react';
 import { storage } from '../Firebase/config';
 import { View, Alert, StyleSheet, Text } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-// import { uuid } from 'react-native-uuid';
 
 export default class SaveToFirebase extends Component {
     state = {
         isLoaded: true,
         url: '',
-
     }
 
     saveToPolaroll = async () => {
-        const { photo } = this.props
         this.setState({isLoaded: false})
-        // const imageName = uuid();
-        const imageName = "hi";
-        this.uploadImage(photo.uri, imageName)
+        this.uploadImage()
             .then(() => {
                 this.setState({isLoaded: true})
                 Alert.alert("Success")
@@ -26,7 +21,13 @@ export default class SaveToFirebase extends Component {
             })
     }
 
-    uploadImage = async (uri, imageName) => {
+    uploadImage = async () => {
+        const { uri } = this.props.photo
+        // let uniqueName = Date.now();
+        // let imageName = uniqueName.toString()
+        // console.log(typeof imageName)
+        const imageName = 'pardon-me'
+
         try {
             const response = await fetch(uri);
             const blob = await response.blob();
