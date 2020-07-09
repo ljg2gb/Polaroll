@@ -12,10 +12,11 @@ export default class LoginSignup extends Component {
         token: '',
         name: '',
         id: '',
-        photos: []
+        photos: [],
     } 
 
     userFetch = (url, body) => {
+        // this.setRecentlySavedPhoto()
         fetch(url, {
           method: "POST",
           headers: {
@@ -48,18 +49,32 @@ export default class LoginSignup extends Component {
             photos: result.photos
         })
         console.log("photos", this.state.photos)
-        // this.SetInSecureStore(result)
-        this.navigateToProfile()
+        this.photoFetch()
+        // this.navigateToProfile()
     }
-    
-    // SetInSecureStore = async ({token, user_id, user_name}) => {
-    //     const credentials = { token, user_id, user_name };
-    //     try {
-    //         await SecureStore.setItemAsync( 'userInfo', JSON.stringify(credentials) );
-    //     } catch (e) {
-    //       console.log(e);
-    //     }
-    // };
+
+    photoFetch = () => {
+        const { link } = this.props.route.params
+        console.log("link", link)
+        const body = { 
+            photo: {
+                link: link,
+                notes: 'placeholder',
+                user_id: this.state.id
+            }    
+        }
+        console.log("body", body)
+        console.log("token", this.state.token)
+        fetch("https://polaroll.herokuapp.com/photos", {
+            method: "POST",
+            headers: {
+                "Content-Type": "Application/json",
+                "Authorization": `Bearer ${this.state.token}`
+            },
+            body: JSON.stringify(body)
+        })
+            .then(response => console.log("photofetchresult", response))
+    }
     
     navigateToProfile = () => {
         const {token, name, id, photos} = this.state
@@ -68,6 +83,14 @@ export default class LoginSignup extends Component {
 
     toggleForms = () => {
         this.setState({ isLogin: !this.state.isLogin})
+    }
+
+    setRecentlySavedPhoto = () => {
+        const { url } = this.props
+        this.setState({
+            photos: this.state.photos.push(url)
+        })
+        console.log('setRecentlySaved', this.state.photos)
     }
 
     render() {

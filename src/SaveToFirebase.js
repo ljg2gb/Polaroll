@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { storage } from '../Firebase/config';
 import { View, Alert, StyleSheet, Text } from 'react-native';
 import { TouchableHighlight } from 'react-native-gesture-handler';
-import { uuid } from 'uuidv4';
+// import { uuid } from 'react-native-uuid';
 
 export default class SaveToFirebase extends Component {
     state = {
@@ -14,7 +14,8 @@ export default class SaveToFirebase extends Component {
     saveToPolaroll = async () => {
         const { photo } = this.props
         this.setState({isLoaded: false})
-        const imageName = uuid();
+        // const imageName = uuid();
+        const imageName = "hi";
         this.uploadImage(photo.uri, imageName)
             .then(() => {
                 this.setState({isLoaded: true})
@@ -33,6 +34,7 @@ export default class SaveToFirebase extends Component {
             storageRef.put(blob)
             storageRef.getDownloadURL()
                 .then(url => {
+                    this.navigateToLoginSignup(url)
                     this.setState({ url: url })
                     console.log(this.state.url)
                 })
@@ -45,7 +47,9 @@ export default class SaveToFirebase extends Component {
         }
     }
 
-
+    navigateToLoginSignup = (link) => {
+        this.props.navigation.navigate('LoginSignup', { link } )
+    }
 
     render() {
         const { isLoaded } = this.state
@@ -55,7 +59,6 @@ export default class SaveToFirebase extends Component {
                 underlayColor='rgb(210,220,230)'
                 style={styles.navButton}
                 navigation={navigation}
-                // onPress={this.navigate}
                 onPress={this.saveToPolaroll}>
                 <View>
                     <Text style={styles.navButtonText}>Save to Polaroll</Text>

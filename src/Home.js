@@ -34,15 +34,15 @@ export default class Home extends Component {
         }
     }
 
-    navigate = () => {
-        const {userInfo} = this.props.route.params;
-        const { navigation } = this.props;
-        if (userInfo.token) {
-            navigation.navigate('Profile', { userInfo })
-        } else {
-            navigation.navigate('LoginSignup')
-        }
-    }
+    // navigate = () => {
+    //     const {userInfo} = this.props.route.params;
+    //     const { navigation } = this.props;
+    //     if (userInfo.token) {
+    //         navigation.navigate('Profile', { userInfo })
+    //     } else {
+    //         navigation.navigate('LoginSignup')
+    //     }
+    // }
 
     // uploadToFirebase = () => {
     //     const { photo } = this.props.route.params

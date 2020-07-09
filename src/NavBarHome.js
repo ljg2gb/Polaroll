@@ -24,16 +24,6 @@ export default function NavBarHome({navigation, saveToCameraRoll, photo}) {
                 </View>
             </TouchableHighlight>
             <SaveToFirebase navigation={navigation} photo={photo} ></SaveToFirebase>
-            {/* <TouchableHighlight
-                underlayColor='rgb(210,220,230)'
-                style={styles.navButton}
-                navigation={navigation}
-                // onPress={this.navigate}
-                onPress={uploadToFirebase}>
-                <View>
-                    <Text style={styles.navButtonText}>Save to Polaroll</Text>
-                </View>
-            </TouchableHighlight> */}
         </View>
     )
 }
