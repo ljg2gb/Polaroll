@@ -33,22 +33,6 @@ export default class Home extends Component {
             alert('No photo selected!')
         }
     }
-
-    // navigate = () => {
-    //     const {userInfo} = this.props.route.params;
-    //     const { navigation } = this.props;
-    //     if (userInfo.token) {
-    //         navigation.navigate('Profile', { userInfo })
-    //     } else {
-    //         navigation.navigate('LoginSignup')
-    //     }
-    // }
-
-    // uploadToFirebase = () => {
-    //     const { photo } = this.props.route.params
-    //     const { navigation } = this.props
-    //     navigation.navigate('SaveToFirebase', { photo })
-    // }
  
 
     render() {

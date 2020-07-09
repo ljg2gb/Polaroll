@@ -1,32 +1,9 @@
 import React, { Component } from 'react';
 import {View, Text, StyleSheet} from "react-native";
 import * as SecureStore from 'expo-secure-store';
-import { TouchableOpacity, TouchableHighlight } from 'react-native-gesture-handler';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default class ProfileHeader extends Component {
-    // state = {
-    //     name: '',
-    //     userInfo: {},
-    // }
-
-    // componentDidMount() {
-    //     this.getFromSecureStore()
-    // }
-
-    // getFromSecureStore = async () => {
-    //     try {
-    //         const credentials = await SecureStore.getItemAsync('userInfo');
-    //         if (credentials) {
-    //             const userInfo = JSON.parse(credentials);
-    //             this.setState({
-    //                 userInfo: userInfo,
-    //                 name: userInfo.user_name
-    //             })
-    //         }
-    //     } catch (e) {
-    //         console.log(e);
-    //     }
-    // }
 
     handleLogout = () => {
         this.logout()

@@ -7,6 +7,7 @@ export default function NavBarHome({navigation, saveToCameraRoll, photo}) {
 
     return(
         <View style={styles.navbar}>
+
             <TouchableHighlight
                 underlayColor='rgb(210,220,230)'
                 style={styles.navButton}  
@@ -15,6 +16,7 @@ export default function NavBarHome({navigation, saveToCameraRoll, photo}) {
                     <Text style={styles.navButtonText}>Retake Photo</Text>
                 </View>
             </TouchableHighlight>
+
             <TouchableHighlight 
                 underlayColor='rgb(210,220,230)'
                 style={styles.navButton}
@@ -23,7 +25,9 @@ export default function NavBarHome({navigation, saveToCameraRoll, photo}) {
                     <Text style={styles.navButtonText}>Save to Camera Roll</Text>
                 </View>
             </TouchableHighlight>
+
             <SaveToFirebase navigation={navigation} photo={photo} ></SaveToFirebase>
+            
         </View>
     )
 }

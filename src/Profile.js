@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, Text } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-import * as SecureStore from 'expo-secure-store';
 
 import ProfileHeader from './ProfileHeader'
 import SavedPhoto from './SavedPhoto'
-import { render } from 'react-dom';
 
 export default class Profile extends Component {
 

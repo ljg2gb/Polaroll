@@ -1,8 +1,6 @@
 import React from 'react';
 import {View, StyleSheet, Text, Image} from "react-native";
 
-import polaroidSX70 from '../assets/polaroidSX70.png'
-
 export default function SavedPhoto({ link }) {
 
     console.log(link)
@@ -25,7 +23,6 @@ const styles = StyleSheet.create({
     },
 
     photo: {
-        // backgroundColor: 'hsl(198, 100%, 12%)', 
         height: 70, 
         width: '90%', 
         resizeMode: "contain",
