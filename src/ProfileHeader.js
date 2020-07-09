@@ -2,14 +2,14 @@ import React from 'react';
 import {View, Text, StyleSheet} from "react-native";
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default function ProfileHeader() {
+export default function ProfileHeader({navigation}) {
 
     const handleLogout = () => {
-        this.props.navigation.navigate('Viewfinder')
+        navigation.navigate('Viewfinder')
     }
 
     const handleRetake = () => {
-        this.props.navigation.navigate('Viewfinder')
+        navigation.navigate('Viewfinder')
     }
 
     return(
