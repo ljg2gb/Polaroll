@@ -3,7 +3,7 @@ import {View, Text, StyleSheet} from "react-native";
 import * as SecureStore from 'expo-secure-store';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
-export default class ProfileHeader extends Component {
+export default function ProfileHeader() {
 
     handleLogout = () => {
         this.logout()
@@ -23,21 +23,20 @@ export default class ProfileHeader extends Component {
         }
     }
 
-    render() {
-        return(
-            <View style={styles.welcomeContainer}>
-                <Text style={styles.welcome}>{this.props.name}</Text>
+    return(
+        <View style={styles.welcomeContainer}>
+            <Text style={styles.welcome}>{this.props.name}</Text>
 
-                <TouchableOpacity onPress={this.handleLogout}>
-                    <Text style={styles.logout}>Logout</Text>
-                </TouchableOpacity>
+            <TouchableOpacity onPress={this.handleLogout}>
+                <Text style={styles.logout}>Logout</Text>
+            </TouchableOpacity>
 
-                <TouchableOpacity onPress={this.handleRetake}>
-                    <Text style={styles.logout}>Retake Photo</Text>
-                </TouchableOpacity>
-            </View>
-        )
-    }
+            <TouchableOpacity onPress={this.handleRetake}>
+                <Text style={styles.logout}>Retake Photo</Text>
+            </TouchableOpacity>
+        </View>
+    )
+    
 }
 
 const styles = StyleSheet.create({
