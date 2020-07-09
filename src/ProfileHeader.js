@@ -1,42 +1,32 @@
-import React, { Component } from 'react';
+import React from 'react';
 import {View, Text, StyleSheet} from "react-native";
-import * as SecureStore from 'expo-secure-store';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default function ProfileHeader() {
 
-    handleLogout = () => {
-        this.logout()
+    const handleLogout = () => {
         this.props.navigation.navigate('Viewfinder')
     }
 
-    handleRetake = () => {
-        const { userInfo } = this.state
-        this.props.navigation.navigate('Viewfinder', { userInfo })
-    }
-
-    logout = async () => {
-        try {
-            await SecureStore.deleteItemAsync('userInfo');
-        } catch (e) {
-            console.log(e);
-        }
+    const handleRetake = () => {
+        this.props.navigation.navigate('Viewfinder')
     }
 
     return(
         <View style={styles.welcomeContainer}>
-            <Text style={styles.welcome}>{this.props.name}</Text>
+            {/* <Text style={styles.welcome}>{this.props.name}</Text> */}
+            <Text style={styles.welcome}>Lydia</Text>
 
-            <TouchableOpacity onPress={this.handleLogout}>
+            <TouchableOpacity onPress={handleLogout}>
                 <Text style={styles.logout}>Logout</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={this.handleRetake}>
+            <TouchableOpacity onPress={handleRetake}>
                 <Text style={styles.logout}>Retake Photo</Text>
             </TouchableOpacity>
         </View>
     )
-    
+
 }
 
 const styles = StyleSheet.create({

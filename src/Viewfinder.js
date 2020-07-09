@@ -135,12 +135,12 @@ export default class Viewfinder extends Component {
                         <CameraButtons  pickImage={this.pickImage} takePicture={this.takePicture} handleCameraType={this.handleCameraType} ></CameraButtons>
                     </Camera>
 
-                    <ViewfinderNav 
+                    {/* <ViewfinderNav 
                         navigation={navigation} 
                         userInfo={this.state.userInfo}
                         buttonText={this.state.buttonText}
                         photo={this.state.photo}
-                    ></ViewfinderNav>
+                    ></ViewfinderNav> */}
            
                 </View>
             );
@@ -152,7 +152,7 @@ const styles = StyleSheet.create({
     mainContainer: { 
         flex: 1,
         alignItems: 'center',
-        backgroundColor: 'black',
+        backgroundColor: '#282C34',
         height: '100%',
     },
 

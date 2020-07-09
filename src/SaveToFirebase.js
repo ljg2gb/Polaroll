@@ -14,7 +14,7 @@ export default class SaveToFirebase extends Component {
         this.uploadImage()
             .then(() => {
                 this.setState({isLoaded: true})
-                Alert.alert("Success")
+                // Alert.alert("Success")
             })
             .catch((error) => {
                 Alert.alert(error.message);
@@ -35,9 +35,9 @@ export default class SaveToFirebase extends Component {
             storageRef.put(blob)
             storageRef.getDownloadURL()
                 .then(url => {
-                    this.navigateToLoginSignup(url)
+                    // this.navigateToLoginSignup(url)
+                    this.navigateToProfile(uri)
                     this.setState({ url: url })
-                    console.log(this.state.url)
                 })
                 .catch ( error =>
                     console.log(error)
@@ -48,12 +48,15 @@ export default class SaveToFirebase extends Component {
         }
     }
 
+    navigateToProfile = (link) => {
+        this.props.navigation.navigate('Profile', { link })
+    }
+
     navigateToLoginSignup = (link) => {
         this.props.navigation.navigate('LoginSignup', { link } )
     }
 
     render() {
-        const { isLoaded } = this.state
         const { navigation } = this.props
         return( 
             <TouchableHighlight

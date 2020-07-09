@@ -7,9 +7,9 @@ export default function SavedPhoto({ link }) {
 
     return(
         <View style={styles.film}>
-            {/* <View style={styles.photo}> */}
-                <Image  style={styles.photo} source={{uri: link}}></Image>
-            {/* </View> */}
+            <View style={styles.photo}>
+                <Image  style={styles.image} source={{uri: link}}></Image>
+            </View>
         </View>
     )
 }
@@ -17,13 +17,13 @@ export default function SavedPhoto({ link }) {
 const styles = StyleSheet.create({
     film: {
         backgroundColor: 'white', 
-        height: 100, 
-        width: '22%', 
+        height: 130, 
+        width: '30%', 
         margin: 5
     },
 
     photo: {
-        height: 70, 
+        height: 100, 
         width: '90%', 
         resizeMode: "contain",
         position: 'absolute', 

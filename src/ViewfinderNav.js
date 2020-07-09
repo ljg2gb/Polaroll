@@ -4,9 +4,8 @@ import { TouchableHighlight } from 'react-native-gesture-handler';
 
 export default function ViewfinderNav({ navigation, buttonText }) {
 
-    navigateTo = () => {
-        navigation.navigate('LoginSignup'
-            )
+    const navigateTo = () => {
+        navigation.navigate('Profile')
     }
 
     return (
@@ -14,10 +13,10 @@ export default function ViewfinderNav({ navigation, buttonText }) {
             <TouchableHighlight
                 underlayColor='none'
                 navigation={navigation}
-                onPress={this.navigateTo}
+                onPress={navigateTo}
                 style={styles.navButton}>
                     <View>
-                        <Text style={styles.navButtonText}>{buttonText}</Text>
+                        <Text style={styles.navButtonText}>Profile</Text>
                     </View>
             </TouchableHighlight>
         </View>
@@ -26,9 +25,9 @@ export default function ViewfinderNav({ navigation, buttonText }) {
 
 const styles = StyleSheet.create({
     navbar: {
-        backgroundColor: 'transparent',
+        backgroundColor: 'rgb(210,220,230)',
         width: '100%',
-        height: 50,
+        height: 60,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
@@ -37,8 +36,9 @@ const styles = StyleSheet.create({
     },
 
     navButton: {
-        padding: 3,
+        padding: 10,
         paddingVertical: 10,
+        // marginBottom: 10,
         borderStyle: 'solid',
         borderWidth: 1,
         borderBottomColor: '#F04733',
