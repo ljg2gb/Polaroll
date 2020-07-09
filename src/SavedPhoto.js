@@ -1,13 +1,17 @@
 import React from 'react';
 import {View, StyleSheet, Text, Image} from "react-native";
 
+import polaroidSX70 from '../assets/polaroidSX70.png'
+
 export default function SavedPhoto({ link }) {
+
+    console.log(link)
 
     return(
         <View style={styles.film}>
-            <View style={styles.photo}>
-                <Image style={styles.image} source={link}></Image>
-            </View>
+            {/* <View style={styles.photo}> */}
+                <Image  style={styles.photo} source={{uri: link}}></Image>
+            {/* </View> */}
         </View>
     )
 }
@@ -21,9 +25,10 @@ const styles = StyleSheet.create({
     },
 
     photo: {
-        backgroundColor: 'hsl(198, 100%, 12%)', 
+        // backgroundColor: 'hsl(198, 100%, 12%)', 
         height: 70, 
         width: '90%', 
+        resizeMode: "contain",
         position: 'absolute', 
         top: '5%', 
         left: '5%',
@@ -32,6 +37,6 @@ const styles = StyleSheet.create({
     image: {
         width: '100%', 
         height: '100%', 
-        resizeMode: "contain"
+        resizeMode: "cover"
     }
 })

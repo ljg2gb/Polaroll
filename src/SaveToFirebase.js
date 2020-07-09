@@ -6,12 +6,14 @@ export default class SaveToFirebase extends Component {
     state = {
         isLoaded: true,
         url: '',
+
     }
 
     onChooseImagePress = async () => {
         const { photo } = this.props.route.params
         this.setState({isLoaded: false})
-        this.uploadImage(photo.uri, "otro")
+        const imageName = uuid.v4();
+        this.uploadImage(photo.uri, imageName)
             .then(() => {
                 this.setState({isLoaded: true})
                 Alert.alert("Success")
@@ -41,7 +43,11 @@ export default class SaveToFirebase extends Component {
         }
     }
 
-    
+    generateImageName = () => {
+        return(ad)
+    }
+
+
 
     render() {
         const { isLoaded } = this.state

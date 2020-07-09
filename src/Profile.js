@@ -17,12 +17,8 @@ export default class Profile extends Component {
 
     displaySavedPhotos = () => {
         const { photos } = this.props.route.params
-        console.log(photos)
-        return photos.forEach( photo => 
-            <Text>{photo.link}</Text>
-            // console.log("photo", photo.link)
-            // <SavedPhoto link={photo.link} key={photo.id}/> 
-        )
+        let result = photos.map( photo => <SavedPhoto link={photo.link} key={photo.id}/> )
+        return result
     }
 
     render() {
@@ -31,9 +27,6 @@ export default class Profile extends Component {
         return(
             <View>
                 <ScrollView>
-                    <Text>{token}</Text>
-                    <Text>{name}</Text>
-                    <Text>{id}</Text>
                     <ProfileHeader navigation={navigation} name={name} ></ProfileHeader>
                     <View style={styles.photosContainer}>
                         {this.displaySavedPhotos()}
@@ -52,6 +45,21 @@ const styles = StyleSheet.create({
         flexWrap: 'wrap', 
         flexDirection: 'row', 
         marginTop: 5
-    }
+    },
+     film: {
+        backgroundColor: 'white', 
+        height: 100, 
+        width: '22%', 
+        margin: 5
+    },
+
+    photo: {
+        backgroundColor: 'black', 
+        height: 70, 
+        width: '90%', 
+        position: 'absolute', 
+        top: '5%', 
+        left: '5%',
+    },
 
 })
