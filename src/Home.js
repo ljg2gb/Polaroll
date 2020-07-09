@@ -44,15 +44,16 @@ export default class Home extends Component {
         }
     }
 
-    uploadToFirebase = () => {
-        const { photo } = this.props.route.params
-        const { navigation } = this.props
-        navigation.navigate('SaveToFirebase', { photo })
-    }
+    // uploadToFirebase = () => {
+    //     const { photo } = this.props.route.params
+    //     const { navigation } = this.props
+    //     navigation.navigate('SaveToFirebase', { photo })
+    // }
  
 
     render() {
         const { navigation, route } = this.props
+        const { photo } = this.props.route.params
         return (
             <View style={styles.main}>
 
@@ -66,7 +67,8 @@ export default class Home extends Component {
                 <NavBarHome 
                     navigation={navigation} 
                     uploadToFirebase={this.uploadToFirebase} 
-                    navigate={this.navigate} 
+                    navigate={this.navigate}
+                    photo={photo} 
                     saveToCameraRoll={this.saveToCameraRoll}
                 />
 

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { storage } from '../Firebase/config';
-import { View, Button, Alert, StyleSheet, Text } from 'react-native';
+import { View, Alert, StyleSheet, Text } from 'react-native';
+import { TouchableHighlight } from 'react-native-gesture-handler';
+import { uuid } from 'uuidv4';
 
 export default class SaveToFirebase extends Component {
     state = {
@@ -9,10 +11,10 @@ export default class SaveToFirebase extends Component {
 
     }
 
-    onChooseImagePress = async () => {
-        const { photo } = this.props.route.params
+    saveToPolaroll = async () => {
+        const { photo } = this.props
         this.setState({isLoaded: false})
-        const imageName = uuid.v4();
+        const imageName = uuid();
         this.uploadImage(photo.uri, imageName)
             .then(() => {
                 this.setState({isLoaded: true})
@@ -43,27 +45,41 @@ export default class SaveToFirebase extends Component {
         }
     }
 
-    generateImageName = () => {
-        return(ad)
-    }
-
 
 
     render() {
         const { isLoaded } = this.state
+        const { navigation } = this.props
         return( 
-            <View style={styles.container}>
-                <Button title='Upload to Firebase' onPress={this.onChooseImagePress}/>
-                {!isLoaded ? <Text>Loading!</Text> : null}
-            </View>
+            <TouchableHighlight
+                underlayColor='rgb(210,220,230)'
+                style={styles.navButton}
+                navigation={navigation}
+                // onPress={this.navigate}
+                onPress={this.saveToPolaroll}>
+                <View>
+                    <Text style={styles.navButtonText}>Save to Polaroll</Text>
+                </View>
+            </TouchableHighlight>
         )
     } 
 }
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        paddingTop: 50,
-        alignItems: 'center'
-    }
+    navButton: {
+        backgroundColor: 'white',
+        padding: 2,
+        paddingVertical: 10,
+        borderStyle: 'solid',
+        borderWidth: 2,
+        borderBottomColor: '#F04733',
+        borderRightColor: '#ECA827',
+        borderTopColor: '#85BC3D',
+        borderLeftColor: '#3490CC',
+        alignSelf: 'center',
+        flexWrap: 'wrap',
+    },
+    navButtonText: {
+        fontFamily: 'HelveticaNeue-Bold'
+    },
 })

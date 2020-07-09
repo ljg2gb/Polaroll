@@ -1,8 +1,9 @@
 import React from 'react'
 import { View, Text, StyleSheet } from 'react-native'
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import SaveToFirebase from './SaveToFirebase';
 
-export default function NavBarHome({navigation, saveToCameraRoll, navigate, uploadToFirebase}) {
+export default function NavBarHome({navigation, saveToCameraRoll, photo}) {
 
     return(
         <View style={styles.navbar}>
@@ -22,7 +23,8 @@ export default function NavBarHome({navigation, saveToCameraRoll, navigate, uplo
                     <Text style={styles.navButtonText}>Save to Camera Roll</Text>
                 </View>
             </TouchableHighlight>
-            <TouchableHighlight
+            <SaveToFirebase navigation={navigation} photo={photo} ></SaveToFirebase>
+            {/* <TouchableHighlight
                 underlayColor='rgb(210,220,230)'
                 style={styles.navButton}
                 navigation={navigation}
@@ -31,7 +33,7 @@ export default function NavBarHome({navigation, saveToCameraRoll, navigate, uplo
                 <View>
                     <Text style={styles.navButtonText}>Save to Polaroll</Text>
                 </View>
-            </TouchableHighlight>
+            </TouchableHighlight> */}
         </View>
     )
 }
