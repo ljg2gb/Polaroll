@@ -1,10 +1,10 @@
-#Polaroll
+# Polaroll
 
 A mobile photo and camera app built as a tribute to the Polaroid Camera.
 
 View a full walkthrough here: https://www.youtube.com/watch?v=ZfXLcVwfa4M&t=1s
 
-##How the app works
+## How the app works
 * To run the app, first fork and clone down this repo to your local device.
 
     * npm install to download dependencies
@@ -22,16 +22,16 @@ View a full walkthrough here: https://www.youtube.com/watch?v=ZfXLcVwfa4M&t=1s
     * Take a photo and watch the animations
     * Save the photo to your CameraRoll or the app itself.
 
-##Technologies
+## Technologies
 * React Native + Expo 
 * Ruby on Rails
 * Postgres
 * Firebase Storage
 
-##Next goals
+## Next goals
 * Adding and saving filters to photos
 * Adding cropping and other photo adjustments
 * Test and deploy on Android devices
 
-##Authors
+## Authors
 * Lydia Gregory
