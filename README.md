@@ -2,8 +2,6 @@
 
 A mobile photo and camera app built as a tribute to the Polaroid Camera.
 
-![polaroll cameras and logo Gif](./assets/splash_screen_polaroll.png)
-
 View a full walkthrough here: https://www.youtube.com/watch?v=ZfXLcVwfa4M&t=1s
 
 ##How the app works
